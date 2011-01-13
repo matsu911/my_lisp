@@ -10,6 +10,9 @@ int main()
   REGISTER_TEST_CASE(test_is_alpha_char);
   REGISTER_TEST_CASE(test_is_number_char);
   REGISTER_TEST_CASE(test_is_number_string);
+  REGISTER_TEST_CASE(test_is_white_space_char);
+  REGISTER_TEST_CASE(test_is_begin_list_char);
+  REGISTER_TEST_CASE(test_is_end_list_char);
 
   UNITTEST_MAIN_END();
 }

@@ -5,6 +5,55 @@
 #include "atom.h"
 #include "unittest.h"
 
+LISP_BOOL is_begin_list_char(const char c)
+{
+  if(c == '(')
+    return LISP_TRUE;
+  else
+    return LISP_FALSE;
+}
+
+TEST_CASE(test_is_begin_list_char)
+{
+  ASSERT_TRUE(is_begin_list_char('('));
+  ASSERT_FALSE(is_begin_list_char(')'));
+  ASSERT_FALSE(is_begin_list_char(' '));
+  ASSERT_FALSE(is_begin_list_char('\0'));
+}
+
+LISP_BOOL is_end_list_char(const char c)
+{
+  if(c == ')')
+    return LISP_TRUE;
+  else
+    return LISP_FALSE;
+}
+
+TEST_CASE(test_is_end_list_char)
+{
+  ASSERT_FALSE(is_end_list_char('('));
+  ASSERT_TRUE(is_end_list_char(')'));
+  ASSERT_FALSE(is_end_list_char(' '));
+  ASSERT_FALSE(is_end_list_char('\0'));
+}
+
+LISP_BOOL is_white_space_char(const char c)
+{
+  if(c == ' ' || c == '\t' || c == '\n' || c == '\r')
+    return LISP_TRUE;
+  else
+    return LISP_FALSE;
+}
+
+TEST_CASE(test_is_white_space_char)
+{
+  ASSERT_TRUE(is_white_space_char(' '));
+  ASSERT_TRUE(is_white_space_char('\t'));
+  ASSERT_TRUE(is_white_space_char('\n'));
+  ASSERT_TRUE(is_white_space_char('\r'));
+  ASSERT_FALSE(is_white_space_char('\0'));
+}
+
 LISP_BOOL is_alpha_char(const char c)
 {
   if(('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z'))
@@ -56,7 +105,7 @@ TEST_CASE(test_is_number_char)
 
 LISP_BOOL is_number_string(const char * str)
 {
-  char * p = str;
+  const char * p = str;
   while(*p != 0)
   {
     if(LISP_FALSE == is_number_char(*p))
