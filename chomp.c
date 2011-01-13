@@ -19,7 +19,7 @@ void chomp(const char * str)
   }
 }
 
-TEST_CASE(test_func1)
+TEST_CASE(test_chomp)
 {
   {
     const char * s = "";

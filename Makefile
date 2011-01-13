@@ -1,3 +1,4 @@
+CC = gcc
 SRCS  = $(wildcard *.c)
 OBJS=$(patsubst %.c,%.o,$(SRCS))
 
@@ -8,7 +9,6 @@ all: $(OBJS)
 	$(CC) -o lisp $?
 
 unittest_main: $(filter-out main.o,$(OBJS))
-	echo $?
 	$(CC) -o $@ $?
 
 check: unittest_main

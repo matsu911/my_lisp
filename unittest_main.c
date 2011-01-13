@@ -6,8 +6,10 @@ int main()
 {
   UNITTEST_MAIN_BEGIN();
 
-  REGISTER_TEST_CASE(test_func1);
-  REGISTER_TEST_CASE(test_func1);
+  REGISTER_TEST_CASE(test_chomp);
+  REGISTER_TEST_CASE(test_is_alpha_char);
+  REGISTER_TEST_CASE(test_is_number_char);
+  REGISTER_TEST_CASE(test_is_number_string);
 
   UNITTEST_MAIN_END();
 }

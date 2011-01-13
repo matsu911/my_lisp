@@ -5,10 +5,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "type.h"
 
 #define ASSERT_TRUE(expression)                                 \
   {                                                             \
-    if(expression)                                              \
+    if(expression == LISP_TRUE)                                 \
     {                                                           \
       ++result->num_passed;                                     \
       fprintf(stdout, ".", __LINE__);                           \
@@ -31,7 +32,7 @@ typedef struct _Test_Result
   int num_failed;
 } Test_Result;
 
-int is_all_passed(Test_Result * result);
+LISP_BOOL is_all_passed(Test_Result * result);
 
 void print_test_result(Test_Result * result);
 
@@ -62,7 +63,7 @@ void print_test_result(Test_Result * result);
   {                                                     \
     if(results[i] != NULL)                              \
     {                                                   \
-      if(is_all_passed(results[i]))                     \
+      if(is_all_passed(results[i]) == LISP_TRUE)        \
         ++num_passed;                                   \
       else                                              \
         ++num_failed;                                   \

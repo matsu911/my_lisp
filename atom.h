@@ -13,4 +13,6 @@ typedef struct _Atom
   void * ptr;
 } Atom;
 
+int parse_Atom(const char * str, Atom * atom);
+
 #endif /* __ATOM_H__ */
