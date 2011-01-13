@@ -8,24 +8,56 @@
 #include <string.h>
 #include "type.h"
 
-#define ASSERT_TRUE(expression)                                 \
-  {                                                             \
-    if(expression == LISP_TRUE)                                 \
-    {                                                           \
-      ++result->num_passed;                                     \
-      fprintf(stdout, ".", __LINE__);                           \
-    }                                                           \
-    else                                                        \
-    {                                                           \
-      ++result->num_failed;                                     \
-      fprintf(stdout, "failed at %s:%d\n",__FILE__,  __LINE__); \
-    }                                                           \
-  }                                                             \
+#define ASSERT_TRUE(expression)                 \
+  {                                             \
+    if(expression == LISP_TRUE)                 \
+    {                                           \
+      ++result->num_passed;                     \
+      fprintf(stdout, ".");                     \
+    }                                           \
+    else                                        \
+    {                                           \
+      ++result->num_failed;                     \
+      fprintf(stdout, "\nfailed at %s:%d\n",    \
+              __FILE__,  __LINE__);             \
+    }                                           \
+  }                                             \
 
 #define ASSERT_FALSE(expression) ASSERT_TRUE(!expression)
 
-#define ASSERT_STRING_EQUAL(s1, s2)             \
-  ASSERT_TRUE(strcmp(s1, s2) == 0)              \
+#define ASSERT_INT_EQAUL(expected, value)           \
+  {                                                 \
+    if(expected == value)                           \
+    {                                               \
+      ++result->num_passed;                         \
+      fprintf(stdout, ".");                         \
+    }                                               \
+    else                                            \
+    {                                               \
+      ++result->num_failed;                         \
+      fprintf(stdout, "\nfailed at %s:%d\n",        \
+              __FILE__,  __LINE__);                 \
+      fprintf(stdout, " expected %d, but got %d\n", \
+              expected, value);                     \
+    }                                               \
+  }                                                 \
+
+#define ASSERT_STRING_EQUAL(expected, value)        \
+  {                                                 \
+    if(strcmp(expected, value) == 0)                \
+    {                                               \
+      ++result->num_passed;                         \
+      fprintf(stdout, ".");                         \
+    }                                               \
+    else                                            \
+    {                                               \
+      ++result->num_failed;                         \
+      fprintf(stdout, "\nfailed at %s:%d\n",        \
+              __FILE__,  __LINE__);                 \
+      fprintf(stdout, " expected %s, but got %s\n", \
+              expected, value);                     \
+    }                                               \
+  }                                                 \
 
 #define TEST_CASE(test_name)                    \
   void test_name(Test_Result * result)          \

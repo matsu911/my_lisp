@@ -1,6 +1,7 @@
 CC = gcc
 SRCS  = $(wildcard *.c)
 OBJS=$(patsubst %.c,%.o,$(SRCS))
+CCFLAGS= -std=c99 -Wall
 
 %.o: %.c
 	$(CC) $(CCFLAGS) -o $@ -c $<

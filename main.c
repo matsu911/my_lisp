@@ -39,9 +39,10 @@ Symbol * new_symbol()
 
 Symbol * new_symbol_nil()
 {
-  Symbol * symbol = new_symbol();
-  symbol->id = 0;
-  symbol->name = "nil";
+  Symbol * p = new_symbol();
+  p->id = 0;
+  p->name = "nil";
+  return p;
 }
 
 /* #define nil NULL */
@@ -60,27 +61,27 @@ int is_integer(char * str)
   return LISP_TRUE;
 }
 
-Atom * parse_atom(char * str)
-{
-  Atom *p = new_atom();
+/* Atom * parse_atom(char * str) */
+/* { */
+/*   Atom *p = new_atom(); */
 
-  if(is_integer(str) == LISP_TRUE)
-  {
-    p->ptr  = new_int(atoi(str));
-    p->type = ATOM_INTEGER;
-  }
+/*   if(is_integer(str) == LISP_TRUE) */
+/*   { */
+/*     p->ptr  = new_int(atoi(str)); */
+/*     p->type = ATOM_INTEGER; */
+/*   } */
   
-  return p;
-}
+/*   return p; */
+/* } */
 
-Cons * parse_list(char * str)
-{
-  Cons * cons = new_cons();
-  char * p = str;
-  while(*p == '(') ++p;
+/* Cons * parse_list(char * str) */
+/* { */
+/*   Cons * cons = new_cons(); */
+/*   char * p = str; */
+/*   while(*p == '(') ++p; */
 
-  return cons;
-}
+/*   return cons; */
+/* } */
 
 void parse(char * str)
 {

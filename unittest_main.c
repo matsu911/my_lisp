@@ -2,6 +2,17 @@
 
 #include "unittest.h"
 
+TEST_CASE(test_chomp);
+TEST_CASE(test_is_alpha_char);
+TEST_CASE(test_is_number_char);
+TEST_CASE(test_is_number_string);
+TEST_CASE(test_is_white_space_char);
+TEST_CASE(test_is_begin_list_char);
+TEST_CASE(test_is_end_list_char);
+TEST_CASE(test_is_end_string_char);
+/* TEST_CASE(test_parse_list); */
+TEST_CASE(test_parse_atom);
+
 int main()
 {
   UNITTEST_MAIN_BEGIN();
@@ -13,8 +24,9 @@ int main()
   REGISTER_TEST_CASE(test_is_white_space_char);
   REGISTER_TEST_CASE(test_is_begin_list_char);
   REGISTER_TEST_CASE(test_is_end_list_char);
-  REGISTER_TEST_CASE(test_parse_list);
-  REGISTER_TEST_CASE(test_is_end_of_string);
+  REGISTER_TEST_CASE(test_is_end_string_char);
+  /* REGISTER_TEST_CASE(test_parse_list); */
+  REGISTER_TEST_CASE(test_parse_atom);
 
   UNITTEST_MAIN_END();
 }

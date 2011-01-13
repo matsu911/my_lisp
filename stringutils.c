@@ -4,7 +4,7 @@
 #include "unittest.h"
 #include <string.h>
 
-LISP_BOOL is_end_of_string(const char c)
+LISP_BOOL is_end_string_char(const char c)
 {
   if(c == '\0')
     return LISP_TRUE;
@@ -12,11 +12,11 @@ LISP_BOOL is_end_of_string(const char c)
     return LISP_FALSE;
 }
 
-TEST_CASE(test_is_end_of_string)
+TEST_CASE(test_is_end_string_char)
 {
-  ASSERT_FALSE(is_end_of_string(' '));
-  ASSERT_TRUE(is_end_of_string('\0'));
-  ASSERT_TRUE(is_end_of_string(0));
+  ASSERT_FALSE(is_end_string_char(' '));
+  ASSERT_TRUE(is_end_string_char('\0'));
+  ASSERT_TRUE(is_end_string_char(0));
 }
 
 LISP_BOOL is_begin_list_char(const char c)

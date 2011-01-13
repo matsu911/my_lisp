@@ -5,7 +5,7 @@
 
 #include "type.h"
 
-LISP_BOOL is_end_of_string(const char c);
+LISP_BOOL is_end_string_char(const char c);
 
 LISP_BOOL is_begin_list_char(const char c);
 

@@ -24,7 +24,7 @@ TEST_CASE(test_chomp)
   {
     const char * s = "";
     const char * tmp = (char*)malloc(sizeof(char) * strlen(s));
-    ASSERT_TRUE(strcmp("", tmp) == 0);
+    ASSERT_STRING_EQUAL("", tmp);
     if(tmp != NULL)
       free((void*)tmp);
   }
@@ -32,7 +32,7 @@ TEST_CASE(test_chomp)
   {
     const char * s = "\n";
     const char * tmp = (char*)malloc(sizeof(char) * strlen(s));
-    ASSERT_TRUE(strcmp("", tmp) == 0);
+    ASSERT_STRING_EQUAL("", tmp);
     if(tmp != NULL)
       free((void*)tmp);
   }
@@ -40,7 +40,7 @@ TEST_CASE(test_chomp)
   {
     const char * s = " ";
     const char * tmp = (char*)malloc(sizeof(char) * strlen(s));
-    ASSERT_TRUE(strcmp("", tmp) == 0);
+    ASSERT_STRING_EQUAL("", tmp);
     if(tmp != NULL)
       free((void*)tmp);
   }
@@ -48,7 +48,7 @@ TEST_CASE(test_chomp)
   {
     const char * s = "\r";
     const char * tmp = (char*)malloc(sizeof(char) * strlen(s));
-    ASSERT_TRUE(strcmp("", tmp) == 0);
+    ASSERT_STRING_EQUAL("", tmp);
     if(tmp != NULL)
       free((void*)tmp);
   }
@@ -56,7 +56,7 @@ TEST_CASE(test_chomp)
   {
     const char * s = "\r\n";
     const char * tmp = (char*)malloc(sizeof(char) * strlen(s));
-    ASSERT_TRUE(strcmp("", tmp) == 0);
+    ASSERT_STRING_EQUAL("", tmp);
     if(tmp != NULL)
       free((void*)tmp);
   }
