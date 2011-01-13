@@ -15,6 +15,6 @@ check: unittest_main
 	./unittest_main
 
 clean:
-	rm -f *.o hack.so
+	rm -f *.o
 
 rebuild: clean all
