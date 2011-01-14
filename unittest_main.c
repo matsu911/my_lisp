@@ -13,6 +13,8 @@ int main()
   REGISTER_TEST_CASE(test_is_white_space_char);
   REGISTER_TEST_CASE(test_is_begin_list_char);
   REGISTER_TEST_CASE(test_is_end_list_char);
+  REGISTER_TEST_CASE(test_parse_list);
+  REGISTER_TEST_CASE(test_is_end_of_string);
 
   UNITTEST_MAIN_END();
 }

@@ -4,6 +4,21 @@
 #include "unittest.h"
 #include <string.h>
 
+LISP_BOOL is_end_of_string(const char c)
+{
+  if(c == '\0')
+    return LISP_TRUE;
+  else
+    return LISP_FALSE;
+}
+
+TEST_CASE(test_is_end_of_string)
+{
+  ASSERT_FALSE(is_end_of_string(' '));
+  ASSERT_TRUE(is_end_of_string('\0'));
+  ASSERT_TRUE(is_end_of_string(0));
+}
+
 LISP_BOOL is_begin_list_char(const char c)
 {
   if(c == '(')
