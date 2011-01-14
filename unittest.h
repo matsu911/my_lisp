@@ -5,6 +5,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "type.h"
 
 #define ASSERT_TRUE(expression)                                 \
@@ -22,6 +23,9 @@
   }                                                             \
 
 #define ASSERT_FALSE(expression) ASSERT_TRUE(!expression)
+
+#define ASSERT_STRING_EQUAL(s1, s2)             \
+  ASSERT_TRUE(strcmp(s1, s2) == 0)              \
 
 #define TEST_CASE(test_name)                    \
   void test_name(Test_Result * result)          \
