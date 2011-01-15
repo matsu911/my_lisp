@@ -3,6 +3,8 @@
 #ifndef __CONS_H__
 #define __CONS_H__
 
+#include "atom.h"
+
 enum OBJECT_TYPE
 {
   OBJECT_ATOM,
@@ -15,6 +17,8 @@ typedef struct _Object
   void * ptr;
 } Object;
 
+Object * new_Object();
+Object * new_Object_with_Atom(Atom * atom);
 void delete_Object(Object * object);
 
 typedef struct _Cons

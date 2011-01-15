@@ -5,6 +5,21 @@
 #include "atom.h"
 #include "unittest.h"
 
+Object * new_Object()
+{
+  Object * p = (Object *)malloc(sizeof(Object));
+  /* if(p == NULL) */
+  /*   xxxxx; */
+  return p;
+}
+
+Object * new_Object_with_Atom(Atom * atom)
+{
+  Object * p = new_Object();
+  p->ptr = (void*)atom;
+  return p;
+}
+
 void delete_Object(Object * object)
 {
   if(object == NULL || object->ptr == NULL) return;
@@ -18,8 +33,8 @@ void delete_Object(Object * object)
 Cons * new_Cons()
 {
   Cons * cons = (Cons*)malloc(sizeof(Cons));
-  cons->car = (void*)new_symbol_nil();
-  cons->cdr = (void*)new_symbol_nil();
+  cons->car = (void*)new_Object_with_Atom(new_Atom_with_Symbol(new_symbol_nil()));
+  cons->cdr = (void*)new_Object_with_Atom(new_Atom_with_Symbol(new_symbol_nil()));
   return cons;
 }
 
@@ -31,7 +46,12 @@ void delete_Cons(Cons * cons)
 
 int parse_Cons(const char * str, Cons ** cons)
 {
-  return 0;
+  const char * p = str;
+  while(!is_begin_list_char(*p)) ++p;
+
+  cons = new_Cons();
+  
+  return p - str;
 }
 
 

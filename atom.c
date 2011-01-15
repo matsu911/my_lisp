@@ -24,6 +24,13 @@ Atom * new_Atom()
   return atom;
 }
 
+Atom * new_Atom_with_Symbol(Symbol * symbol)
+{
+  Atom * atom = new_Atom();
+  atom->ptr = symbol;
+  return atom;
+}
+
 void delete_Atom(Atom * atom)
 {
   if(atom->ptr == NULL )

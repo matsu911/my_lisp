@@ -3,6 +3,8 @@
 #ifndef __ATOM_H__
 #define __ATOM_H__
 
+#include "symbol.h"
+
 typedef struct _Atom
 {
   enum { ATOM_INTEGER,
@@ -17,5 +19,6 @@ int parse_Atom(const char * str, Atom ** atom);
 void delete_Atom(Atom * atom);
 
 Atom * new_Atom();
+Atom * new_Atom_with_Symbol(Symbol * symbol);
 
 #endif /* __ATOM_H__ */
