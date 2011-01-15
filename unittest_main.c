@@ -10,8 +10,8 @@ TEST_CASE(test_is_white_space_char);
 TEST_CASE(test_is_begin_list_char);
 TEST_CASE(test_is_end_list_char);
 TEST_CASE(test_is_end_string_char);
-/* TEST_CASE(test_parse_list); */
-TEST_CASE(test_parse_atom);
+TEST_CASE(test_parse_list);
+TEST_CASE(test_parse_Atom);
 
 int main()
 {
@@ -26,7 +26,7 @@ int main()
   REGISTER_TEST_CASE(test_is_end_list_char);
   REGISTER_TEST_CASE(test_is_end_string_char);
   /* REGISTER_TEST_CASE(test_parse_list); */
-  REGISTER_TEST_CASE(test_parse_atom);
+  REGISTER_TEST_CASE(test_parse_Atom);
 
   UNITTEST_MAIN_END();
 }

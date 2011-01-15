@@ -5,14 +5,17 @@
 
 typedef struct _Atom
 {
-  enum { ATOM_NIL,
-         ATOM_INTEGER,
+  enum { ATOM_INTEGER,
          ATOM_SYMBOL,
   } type;
 
   void * ptr;
 } Atom;
 
-int parse_Atom(const char * str, Atom * atom);
+int parse_Atom(const char * str, Atom ** atom);
+
+void delete_Atom(Atom * atom);
+
+Atom * new_Atom();
 
 #endif /* __ATOM_H__ */

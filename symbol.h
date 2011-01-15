@@ -8,3 +8,4 @@ typedef struct _Symbol
 
 Symbol * new_symbol();
 Symbol * new_symbol_nil();
+void delete_symbol(Symbol * symbol);

@@ -25,23 +25,8 @@ int * new_int(int n)
 Cons * new_cons()
 {
   Cons * p = (Cons*)malloc(sizeof(Cons));
-  p->car = new_symbol_nil();
-  p->cdr = new_symbol_nil();
-  return p;
-}
-
-Symbol * new_symbol()
-{
-  Symbol * p = (Symbol*)malloc(sizeof(Symbol));
-  
-  return p;
-}
-
-Symbol * new_symbol_nil()
-{
-  Symbol * p = new_symbol();
-  p->id = 0;
-  p->name = "nil";
+  p->car = (void*)new_symbol_nil();
+  p->cdr = (void*)new_symbol_nil();
   return p;
 }
 
@@ -91,17 +76,17 @@ void print_cons(Cons * cons)
 {
 }
 
-void print_atom(Atom * atom)
-{
-  if(atom->type == ATOM_INTEGER)
-  {
-    printf("%d\n", *((int*)atom->ptr));
-  }
-  else if(atom->type == ATOM_NIL)
-  {
-    printf("nil\n");
-  }
-}
+/* void print_atom(Atom * atom) */
+/* { */
+/*   if(atom->type == ATOM_INTEGER) */
+/*   { */
+/*     printf("%d\n", *((int*)atom->ptr)); */
+/*   } */
+/*   else if(atom->type == ATOM_NIL) */
+/*   { */
+/*     printf("nil\n"); */
+/*   } */
+/* } */
 
 /* int main() */
 /* { */
