@@ -10,7 +10,7 @@
 
 #define ASSERT_TRUE(expression)                 \
   {                                             \
-    if(expression == LISP_TRUE)                 \
+    if((expression) == LISP_TRUE)               \
     {                                           \
       ++result->num_passed;                     \
       fprintf(stdout, ".");                     \
