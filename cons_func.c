@@ -201,7 +201,7 @@ TEST_CASE(test_parse_Cons_internal)
     const char * s = " ";
     ASSERT_INT_EQAUL(1, parse_Cons_internal(s, &cons));
     /* print_Cons(cons); */
-    ASSERT_TRUE(cons == NULL);
+    ASSERT_NULL(cons);
   }
 
   {
@@ -272,7 +272,7 @@ TEST_CASE(test_parse_Cons)
     const char * s = " ";
     int size = parse_Cons(s, &cons);
     ASSERT_INT_EQAUL(1, size);
-    ASSERT_TRUE(cons == NULL);
+    ASSERT_NULL(cons);
   }
 
   {

@@ -25,6 +25,8 @@
 
 #define ASSERT_FALSE(expression) ASSERT_TRUE(!expression)
 
+#define ASSERT_NULL(expression) ASSERT_TRUE(expression == NULL)
+
 #define ASSERT_INT_EQAUL(expected, value)           \
   {                                                 \
     if(expected == value)                           \
