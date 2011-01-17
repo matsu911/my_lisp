@@ -125,6 +125,20 @@ Cons * cdr_as_Cons(const Cons * cons)
   return (Cons*)cons->cdr->ptr;
 }
 
+Atom * nth_as_Atom(const Cons * cons, int n)
+{
+  n = (n < 0) ? 0 : n;
+
+  const Cons * tmp = cons;
+  while(n > 0)
+  {
+    tmp = cdr_as_Cons(tmp);
+    --n;
+  }
+
+  return car_as_Atom(tmp);
+}
+
 TEST_CASE(test_parse_Cons)
 {
   {
@@ -167,8 +181,8 @@ TEST_CASE(test_parse_Cons)
     const char * s = " (a b) ";
     parse_Cons(s, &cons);
     ASSERT_INT_EQAUL(6, parse_Cons(s, &cons));
-    ASSERT_STRING_EQUAL("a", get_symbol_name(car_as_Atom(cons)));
-    ASSERT_STRING_EQUAL("b", get_symbol_name(car_as_Atom(cdr_as_Cons(cons))));
+    ASSERT_STRING_EQUAL("a", get_symbol_name(nth_as_Atom(cons, 0)));
+    ASSERT_STRING_EQUAL("b", get_symbol_name(nth_as_Atom(cons, 1)));
     ASSERT_STRING_EQUAL("nil", get_symbol_name(cdr_as_Atom(cdr_as_Cons(cons))));
     delete_Cons(cons);
   }
@@ -177,10 +191,21 @@ TEST_CASE(test_parse_Cons)
     Cons * cons;
     const char * s = " (a b c) ";
     ASSERT_INT_EQAUL(8, parse_Cons(s, &cons));
-    ASSERT_STRING_EQUAL("a", get_symbol_name(car_as_Atom(cons)));
-    ASSERT_STRING_EQUAL("b", get_symbol_name(car_as_Atom(cdr_as_Cons(cons))));
-    ASSERT_STRING_EQUAL("c", get_symbol_name(car_as_Atom(cdr_as_Cons(cdr_as_Cons(cons)))));
+    ASSERT_STRING_EQUAL("a", get_symbol_name(nth_as_Atom(cons, 0)));
+    ASSERT_STRING_EQUAL("b", get_symbol_name(nth_as_Atom(cons, 1)));
+    ASSERT_STRING_EQUAL("c", get_symbol_name(nth_as_Atom(cons, 2)));
     ASSERT_STRING_EQUAL("nil", get_symbol_name(cdr_as_Atom(cdr_as_Cons(cdr_as_Cons(cons)))));
+    delete_Cons(cons);
+  }
+
+  {
+    Cons * cons;
+    const char * s = " (a b c . d) ";
+    ASSERT_INT_EQAUL(12, parse_Cons(s, &cons));
+    ASSERT_STRING_EQUAL("a", get_symbol_name(nth_as_Atom(cons, 0)));
+    ASSERT_STRING_EQUAL("b", get_symbol_name(nth_as_Atom(cons, 1)));
+    ASSERT_STRING_EQUAL("c", get_symbol_name(nth_as_Atom(cons, 2)));
+    ASSERT_STRING_EQUAL("d", get_symbol_name(cdr_as_Atom(cdr_as_Cons(cdr_as_Cons(cons)))));
     delete_Cons(cons);
   }
 
