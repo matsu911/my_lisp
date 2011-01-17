@@ -17,6 +17,7 @@ Atom * new_Atom()
 Atom * new_Atom_with_Symbol(Symbol * symbol)
 {
   Atom * atom = new_Atom();
+  atom->type = ATOM_SYMBOL;
   atom->ptr = symbol;
   return atom;
 }
