@@ -89,6 +89,7 @@ TEST_CASE(test_parse_Atom)
   {
     Atom * atom;
     ASSERT_INT_EQAUL(0, parse_Atom("", &atom));
+    ASSERT_INT_EQAUL(ATOM_SYMBOL, atom->type);
     ASSERT_STRING_EQUAL("nil", get_symbol_name(atom));
     delete_Atom(atom);
   }
@@ -96,6 +97,7 @@ TEST_CASE(test_parse_Atom)
   {
     Atom * atom;
     ASSERT_INT_EQAUL(1, parse_Atom("a", &atom));
+    ASSERT_INT_EQAUL(ATOM_SYMBOL, atom->type);
     ASSERT_STRING_EQUAL("a", get_symbol_name(atom));
     delete_Atom(atom);
   }
@@ -103,6 +105,7 @@ TEST_CASE(test_parse_Atom)
   {
     Atom * atom;
     ASSERT_INT_EQAUL(3, parse_Atom(" a1", &atom));
+    ASSERT_INT_EQAUL(ATOM_SYMBOL, atom->type);
     ASSERT_STRING_EQUAL("a1", get_symbol_name(atom));
     delete_Atom(atom);
   }
@@ -110,6 +113,7 @@ TEST_CASE(test_parse_Atom)
   {
     Atom * atom;
     ASSERT_INT_EQAUL(3, parse_Atom(" a1 b2", &atom));
+    ASSERT_INT_EQAUL(ATOM_SYMBOL, atom->type);
     ASSERT_STRING_EQUAL("a1", get_symbol_name(atom));
     delete_Atom(atom);
   }
@@ -117,6 +121,7 @@ TEST_CASE(test_parse_Atom)
   {
     Atom * atom;
     ASSERT_INT_EQAUL(3, parse_Atom(" a1(", &atom));
+    ASSERT_INT_EQAUL(ATOM_SYMBOL, atom->type);
     ASSERT_STRING_EQUAL("a1", get_symbol_name(atom));
     delete_Atom(atom);
   }
@@ -124,6 +129,7 @@ TEST_CASE(test_parse_Atom)
   {
     Atom * atom;
     ASSERT_INT_EQAUL(3, parse_Atom(" a1)", &atom));
+    ASSERT_INT_EQAUL(ATOM_SYMBOL, atom->type);
     ASSERT_STRING_EQUAL("a1", get_symbol_name(atom));
     delete_Atom(atom);
   }
@@ -131,6 +137,7 @@ TEST_CASE(test_parse_Atom)
   {
     Atom * atom;
     ASSERT_INT_EQAUL(0, parse_Atom("(", &atom));
+    ASSERT_INT_EQAUL(ATOM_SYMBOL, atom->type);
     ASSERT_STRING_EQUAL("nil", get_symbol_name(atom));
     delete_Atom(atom);
   }
@@ -138,6 +145,7 @@ TEST_CASE(test_parse_Atom)
   {
     Atom * atom;
     ASSERT_INT_EQAUL(1, parse_Atom(" (", &atom));
+    ASSERT_INT_EQAUL(ATOM_SYMBOL, atom->type);
     ASSERT_STRING_EQUAL("nil", get_symbol_name(atom));
     delete_Atom(atom);
   }
