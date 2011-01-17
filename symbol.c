@@ -2,6 +2,7 @@
 
 #include "symbol.h"
 #include <stdlib.h>
+#include "stringutils.h"
 
 Symbol * new_symbol()
 {
@@ -14,7 +15,7 @@ Symbol * new_symbol_nil()
 {
   Symbol * p = new_symbol();
   p->id = 0;
-  p->name = "nil";
+  p->name = allocate_string("nil");
   return p;
 }
 

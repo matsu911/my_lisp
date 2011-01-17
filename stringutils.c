@@ -194,3 +194,42 @@ TEST_CASE(test_skip_chars_while_not)
   ASSERT_INT_EQAUL(0, skip_chars_while_not(is_white_space_char, "   1 b"));
   ASSERT_INT_EQAUL(1, skip_chars_while_not(is_white_space_char, "1 b"));
 }
+
+char next_char_not(const char_match_predicate pred, const char * str)
+{
+  const char * p = str;
+  while(pred(*p) && !is_end_string_char(*p)) ++p;
+  return *p;
+}
+
+TEST_CASE(test_next_char_while_not)
+{
+  ASSERT_INT_EQAUL('\0', next_char_not(is_white_space_char, ""));
+  ASSERT_INT_EQAUL('\0', next_char_not(is_white_space_char, " "));
+  ASSERT_INT_EQAUL('a', next_char_not(is_white_space_char, " a"));
+}
+
+char * allocate_string(const char * s)
+{
+  int size = strlen(s);
+  char * ret = (char*)malloc(sizeof(char) * (size + 1));
+  strcpy(ret, s);
+  return ret;
+}
+
+TEST_CASE(test_allocate_string)
+{
+  {
+    const char * s = "";
+    const char * tmp = allocate_string(s);
+    ASSERT_STRING_EQUAL("", tmp);
+    free((void*)tmp);
+  }
+
+  {
+    const char * s = "abc";
+    const char * tmp = allocate_string(s);
+    ASSERT_STRING_EQUAL("abc", tmp);
+    free((void*)tmp);
+  }
+}

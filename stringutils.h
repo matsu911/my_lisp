@@ -27,4 +27,8 @@ int skip_chars_while(const char_match_predicate pred, const char * str);
 
 int skip_chars_while_not(const char_match_predicate pred, const char * str);
 
+char next_char_not(const char_match_predicate pred, const char * str);
+
+char * allocate_string(const char * s);
+
 #endif /* __STRINGUTILS_H__ */

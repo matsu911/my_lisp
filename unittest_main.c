@@ -16,6 +16,8 @@ TEST_CASE(test_parse_Atom);
 TEST_CASE(test_parse_Cons);
 TEST_CASE(test_skip_chars_while);
 TEST_CASE(test_skip_chars_while_not);
+TEST_CASE(test_next_char_while_not);
+TEST_CASE(test_allocate_string);
 
 int main()
 {
@@ -35,6 +37,8 @@ int main()
   REGISTER_TEST_CASE(test_parse_Cons);
   REGISTER_TEST_CASE(test_skip_chars_while);
   REGISTER_TEST_CASE(test_skip_chars_while_not);
+  REGISTER_TEST_CASE(test_next_char_while_not);
+  REGISTER_TEST_CASE(test_allocate_string);
 
   UNITTEST_MAIN_END();
 }
