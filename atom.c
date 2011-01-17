@@ -33,7 +33,7 @@ void delete_Atom(Atom * atom)
 int parse_Atom(const char * str, Atom ** atom)
 {
   const char * p = str;
-  while(is_white_space_char(*p) && !is_end_string_char(*p)) ++p;
+  p += skip_chars_while(is_white_space_char, p);
   const char * beg = p;
   while(!is_white_space_char(*p) && 
         !is_end_string_char(*p) && 

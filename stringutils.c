@@ -160,3 +160,37 @@ TEST_CASE(test_is_number_string)
   ASSERT_FALSE(is_number_string("a"));
   ASSERT_FALSE(is_number_string("a0123456789"));
 }
+
+int skip_chars_while(const char_match_predicate pred, const char * str)
+{
+  const char * p = str;
+  while(pred(*p) && !is_end_string_char(*p)) ++p;
+  return p - str;
+}
+
+TEST_CASE(test_skip_chars_while)
+{
+  ASSERT_INT_EQAUL(0, skip_chars_while(is_white_space_char, ""));
+  ASSERT_INT_EQAUL(1, skip_chars_while(is_white_space_char, " "));
+  ASSERT_INT_EQAUL(1, skip_chars_while(is_white_space_char, " 1"));
+  ASSERT_INT_EQAUL(1, skip_chars_while(is_white_space_char, " 1 b"));
+  ASSERT_INT_EQAUL(3, skip_chars_while(is_white_space_char, "   1 b"));
+  ASSERT_INT_EQAUL(0, skip_chars_while(is_white_space_char, "1 b"));
+}
+
+int skip_chars_while_not(const char_match_predicate pred, const char * str)
+{
+  const char * p = str;
+  while(!pred(*p) && !is_end_string_char(*p)) ++p;
+  return p - str;
+}
+
+TEST_CASE(test_skip_chars_while_not)
+{
+  ASSERT_INT_EQAUL(0, skip_chars_while_not(is_white_space_char, ""));
+  ASSERT_INT_EQAUL(0, skip_chars_while_not(is_white_space_char, " "));
+  ASSERT_INT_EQAUL(0, skip_chars_while_not(is_white_space_char, " 1"));
+  ASSERT_INT_EQAUL(0, skip_chars_while_not(is_white_space_char, " 1 b"));
+  ASSERT_INT_EQAUL(0, skip_chars_while_not(is_white_space_char, "   1 b"));
+  ASSERT_INT_EQAUL(1, skip_chars_while_not(is_white_space_char, "1 b"));
+}

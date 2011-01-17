@@ -21,4 +21,10 @@ LISP_BOOL is_number_char(const char c);
 
 LISP_BOOL is_number_string(const char * str);
 
+typedef LISP_BOOL (*char_match_predicate)(const char);
+
+int skip_chars_while(const char_match_predicate pred, const char * str);
+
+int skip_chars_while_not(const char_match_predicate pred, const char * str);
+
 #endif /* __STRINGUTILS_H__ */

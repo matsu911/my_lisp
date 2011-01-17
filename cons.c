@@ -48,7 +48,7 @@ void delete_Cons(Cons * cons)
 int parse_Cons(const char * str, Cons ** cons)
 {
   const char * p = str;
-  while(!is_begin_list_char(*p) && !is_end_string_char(*p)) ++p;
+  p += skip_chars_while_not(is_begin_list_char, p);
 
   if(is_end_string_char(*p))
   {
@@ -72,7 +72,7 @@ int parse_Cons(const char * str, Cons ** cons)
     (*cons)->car = new_Object_with_Atom(atom);
   }
 
-  while(is_white_space_char(*p) && !is_end_string_char(*p)) ++p;
+  p += skip_chars_while(is_white_space_char, p);
 
   // cdr part
   if(is_cons_dot_char(*p))
@@ -88,7 +88,7 @@ int parse_Cons(const char * str, Cons ** cons)
     p += parse_Cons(p, &c);
   }
 
-  while(!is_end_list_char(*p) && !is_end_string_char(*p)) ++p;
+  p += skip_chars_while_not(is_end_list_char, p);
   ++p;
 
   return p - str;
