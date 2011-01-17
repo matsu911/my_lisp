@@ -7,11 +7,13 @@ TEST_CASE(test_is_alpha_char);
 TEST_CASE(test_is_number_char);
 TEST_CASE(test_is_number_string);
 TEST_CASE(test_is_white_space_char);
+TEST_CASE(test_is_cons_dot_char);
 TEST_CASE(test_is_begin_list_char);
 TEST_CASE(test_is_end_list_char);
 TEST_CASE(test_is_end_string_char);
 TEST_CASE(test_parse_list);
 TEST_CASE(test_parse_Atom);
+TEST_CASE(test_parse_Cons);
 
 int main()
 {
@@ -21,12 +23,14 @@ int main()
   REGISTER_TEST_CASE(test_is_alpha_char);
   REGISTER_TEST_CASE(test_is_number_char);
   REGISTER_TEST_CASE(test_is_number_string);
+  REGISTER_TEST_CASE(test_is_cons_dot_char);
   REGISTER_TEST_CASE(test_is_white_space_char);
   REGISTER_TEST_CASE(test_is_begin_list_char);
   REGISTER_TEST_CASE(test_is_end_list_char);
   REGISTER_TEST_CASE(test_is_end_string_char);
   /* REGISTER_TEST_CASE(test_parse_list); */
   REGISTER_TEST_CASE(test_parse_Atom);
+  REGISTER_TEST_CASE(test_parse_Cons);
 
   UNITTEST_MAIN_END();
 }
