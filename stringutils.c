@@ -51,6 +51,22 @@ TEST_CASE(test_is_end_list_char)
   ASSERT_FALSE(is_end_list_char('\0'));
 }
 
+LISP_BOOL is_cons_dot_char(const char c)
+{
+  if(c == '.')
+    return LISP_TRUE;
+  else
+    return LISP_FALSE;
+}
+
+TEST_CASE(test_is_cons_dot_char)
+{
+  ASSERT_TRUE(is_cons_dot_char('.'));
+  ASSERT_FALSE(is_cons_dot_char(' '));
+  ASSERT_FALSE(is_cons_dot_char('('));
+  ASSERT_FALSE(is_cons_dot_char(')'));
+}
+
 LISP_BOOL is_white_space_char(const char c)
 {
   if(c == ' ' || c == '\t' || c == '\n' || c == '\r')

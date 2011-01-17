@@ -11,6 +11,8 @@ LISP_BOOL is_begin_list_char(const char c);
 
 LISP_BOOL is_end_list_char(const char c);
 
+LISP_BOOL is_cons_dot_char(const char c);
+
 LISP_BOOL is_white_space_char(const char c);
 
 LISP_BOOL is_alpha_char(const char c);
