@@ -14,4 +14,6 @@ void delete_Cons(Cons * cons);
 
 int parse_Cons(const char * str, Cons ** cons);
 
+void print_Cons(const Cons * cons);
+
 #endif /* __CONS_FUNC_H__ */

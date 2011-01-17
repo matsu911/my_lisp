@@ -16,6 +16,7 @@ Object * new_Object_with_Atom(Atom * atom)
 {
   Object * p = new_Object();
   p->ptr = (void*)atom;
+  p->type = OBJECT_ATOM;
   return p;
 }
 
@@ -23,6 +24,7 @@ Object * new_Object_with_Cons(Cons * cons)
 {
   Object * p = new_Object();
   p->ptr = (void*)cons;
+  p->type = OBJECT_CONS;
   return p;
 }
 

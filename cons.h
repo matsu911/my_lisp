@@ -12,6 +12,4 @@ typedef struct _Cons
   Object * cdr;
 } Cons;
 
-/* Object * new_Object_with_Cons(Cons * cons); */
-
 #endif /* __CONS_H__ */
