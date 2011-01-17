@@ -7,16 +7,6 @@
 #include "stringutils.h"
 #include "unittest.h"
 
-const char * get_symbol_name(const Atom * atom)
-{
-  if(atom == NULL) return NULL;
-
-  if(atom->type == ATOM_SYMBOL && atom->ptr)
-    return ((Symbol*)atom->ptr)->name;
-
-  return NULL;
-}
-
 Atom * new_Atom()
 {
   Atom * atom = (Atom*)malloc(sizeof(Atom));
@@ -37,7 +27,7 @@ void delete_Atom(Atom * atom)
     return;
 
   if(atom->type == ATOM_SYMBOL)
-    delete_symbol(atom->ptr);
+    delete_symbol((Symbol*)atom->ptr);
 }
 
 int parse_Atom(const char * str, Atom ** atom)
@@ -73,6 +63,16 @@ int parse_Atom(const char * str, Atom ** atom)
   (*atom)->type = ATOM_SYMBOL;
 
   return end - str;
+}
+
+const char * get_symbol_name(const Atom * atom)
+{
+  if(atom == NULL) return NULL;
+
+  if(atom->type == ATOM_SYMBOL && atom->ptr)
+    return ((Symbol*)atom->ptr)->name;
+
+  return NULL;
 }
 
 TEST_CASE(test_parse_Atom)
