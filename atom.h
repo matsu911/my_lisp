@@ -4,23 +4,13 @@
 #define __ATOM_H__
 
 #include "symbol.h"
+#include "object.h"
 
-typedef struct _Atom
-{
-  enum { ATOM_INTEGER,
-         ATOM_SYMBOL,
-  } type;
+int parse_Atom(const char * str, Object ** atom);
 
-  void * ptr;
-} Atom;
+Object * new_Atom();
+Object * new_Atom_with_Symbol(Symbol * symbol);
 
-int parse_Atom(const char * str, Atom ** atom);
-
-void delete_Atom(Atom * atom);
-
-Atom * new_Atom();
-Atom * new_Atom_with_Symbol(Symbol * symbol);
-
-const char * get_symbol_name(const Atom * atom);
+const char * get_symbol_name(const Object * atom);
 
 #endif /* __ATOM_H__ */

@@ -4,31 +4,30 @@
 #include <string.h>
 #include <stdlib.h>
 #include "symbol.h"
-#include "cons.h"
 #include "atom.h"
 #include "unittest.h"
 
-Atom * new_atom()
-{
-  Atom *p = (Atom*)malloc(sizeof(Atom));
-  p->ptr = NULL;
-  return p;
-}
+/* Object * new_atom() */
+/* { */
+/*   Atom *p = (Atom*)malloc(sizeof(Atom)); */
+/*   p->ptr = NULL; */
+/*   return p; */
+/* } */
 
-int * new_int(int n)
-{
-  int *p = (int*)malloc(sizeof(int));
-  *p = n;
-  return p;
-}
+/* int * new_int(int n) */
+/* { */
+/*   int *p = (int*)malloc(sizeof(int)); */
+/*   *p = n; */
+/*   return p; */
+/* } */
 
-Cons * new_cons()
-{
-  Cons * p = (Cons*)malloc(sizeof(Cons));
-  p->car = (void*)new_symbol_nil();
-  p->cdr = (void*)new_symbol_nil();
-  return p;
-}
+/* Cons * new_cons() */
+/* { */
+/*   Cons * p = (Cons*)malloc(sizeof(Cons)); */
+/*   p->car = (void*)new_symbol_nil(); */
+/*   p->cdr = (void*)new_symbol_nil(); */
+/*   return p; */
+/* } */
 
 /* #define nil NULL */
 #define LISP_TRUE 1
@@ -68,13 +67,13 @@ int is_integer(char * str)
 /*   return cons; */
 /* } */
 
-void parse(char * str)
-{
-}
+/* void parse(char * str) */
+/* { */
+/* } */
 
-void print_cons(Cons * cons)
-{
-}
+/* void print_cons(Cons * cons) */
+/* { */
+/* } */
 
 /* void print_atom(Atom * atom) */
 /* { */

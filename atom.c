@@ -3,35 +3,29 @@
 #include <string.h>
 #include <stdlib.h>
 #include "atom.h"
+#include "object_func.h"
 #include "symbol.h"
 #include "stringutils.h"
 #include "unittest.h"
 
-Atom * new_Atom()
+Object * new_Atom()
 {
-  Atom * atom = (Atom*)malloc(sizeof(Atom));
-  atom->ptr = NULL;
+  Object * atom = (Object*)malloc(sizeof(Object));
+  atom->atom = NULL;
+  atom->type = OBJECT_ATOM;
   return atom;
 }
 
-Atom * new_Atom_with_Symbol(Symbol * symbol)
+Object * new_Atom_with_Symbol(Symbol * symbol)
 {
-  Atom * atom = new_Atom();
-  atom->type = ATOM_SYMBOL;
-  atom->ptr = symbol;
+  Object * atom = new_Atom();
+  atom->type = OBJECT_ATOM;
+  atom->sub_type = OBJECT_ATOM_SYMBOL;
+  atom->atom = (void*)symbol;
   return atom;
 }
 
-void delete_Atom(Atom * atom)
-{
-  if(atom->ptr == NULL )
-    return;
-
-  if(atom->type == ATOM_SYMBOL)
-    delete_symbol((Symbol*)atom->ptr);
-}
-
-int parse_Atom(const char * str, Atom ** atom)
+int parse_Atom(const char * str, Object ** atom)
 {
   const char * p = str;
   p += skip_chars_while(is_white_space_char, p);
@@ -60,26 +54,28 @@ int parse_Atom(const char * str, Atom ** atom)
   *atom = new_Atom();
   if(strlen(name) > 0)
   {
-    Symbol * symbol = new_symbol();
-    symbol->name = name;
-    (*atom)->ptr = symbol;
-    (*atom)->type = ATOM_SYMBOL;
+    Symbol * symbol   = new_symbol();
+    symbol->name      = name;
+    (*atom)->atom     = symbol;
+    (*atom)->type     = OBJECT_ATOM;
+    (*atom)->sub_type = OBJECT_ATOM_SYMBOL;
   }
   else
   {
-    (*atom)->ptr = new_symbol_nil();
-    (*atom)->type = ATOM_SYMBOL;
+    (*atom)->atom     = new_symbol_nil();
+    (*atom)->type     = OBJECT_ATOM;
+    (*atom)->sub_type = OBJECT_ATOM_SYMBOL;
   }
 
   return end - str;
 }
 
-const char * get_symbol_name(const Atom * atom)
+const char * get_symbol_name(const Object * atom)
 {
   if(atom == NULL) return NULL;
 
-  if(atom->type == ATOM_SYMBOL && atom->ptr)
-    return ((Symbol*)atom->ptr)->name;
+  if(atom->type == OBJECT_ATOM && atom->sub_type == OBJECT_ATOM_SYMBOL && atom->atom)
+    return ((Symbol*)atom->atom)->name;
 
   return NULL;
 }
@@ -87,66 +83,74 @@ const char * get_symbol_name(const Atom * atom)
 TEST_CASE(test_parse_Atom)
 {
   {
-    Atom * atom;
+    Object * atom;
     ASSERT_INT_EQAUL(0, parse_Atom("", &atom));
-    ASSERT_INT_EQAUL(ATOM_SYMBOL, atom->type);
+    ASSERT_INT_EQAUL(OBJECT_ATOM, atom->type);
+    ASSERT_INT_EQAUL(OBJECT_ATOM_SYMBOL, atom->sub_type);
     ASSERT_STRING_EQUAL("nil", get_symbol_name(atom));
-    delete_Atom(atom);
+    delete_Object(atom);
   }
 
   {
-    Atom * atom;
+    Object * atom;
     ASSERT_INT_EQAUL(1, parse_Atom("a", &atom));
-    ASSERT_INT_EQAUL(ATOM_SYMBOL, atom->type);
+    ASSERT_INT_EQAUL(OBJECT_ATOM, atom->type);
+    ASSERT_INT_EQAUL(OBJECT_ATOM_SYMBOL, atom->sub_type);
     ASSERT_STRING_EQUAL("a", get_symbol_name(atom));
-    delete_Atom(atom);
+    delete_Object(atom);
   }
 
   {
-    Atom * atom;
+    Object * atom;
     ASSERT_INT_EQAUL(3, parse_Atom(" a1", &atom));
-    ASSERT_INT_EQAUL(ATOM_SYMBOL, atom->type);
+    ASSERT_INT_EQAUL(OBJECT_ATOM, atom->type);
+    ASSERT_INT_EQAUL(OBJECT_ATOM_SYMBOL, atom->sub_type);
     ASSERT_STRING_EQUAL("a1", get_symbol_name(atom));
-    delete_Atom(atom);
+    delete_Object(atom);
   }
 
   {
-    Atom * atom;
+    Object * atom;
     ASSERT_INT_EQAUL(3, parse_Atom(" a1 b2", &atom));
-    ASSERT_INT_EQAUL(ATOM_SYMBOL, atom->type);
+    ASSERT_INT_EQAUL(OBJECT_ATOM, atom->type);
+    ASSERT_INT_EQAUL(OBJECT_ATOM_SYMBOL, atom->sub_type);
     ASSERT_STRING_EQUAL("a1", get_symbol_name(atom));
-    delete_Atom(atom);
+    delete_Object(atom);
   }
 
   {
-    Atom * atom;
+    Object * atom;
     ASSERT_INT_EQAUL(3, parse_Atom(" a1(", &atom));
-    ASSERT_INT_EQAUL(ATOM_SYMBOL, atom->type);
+    ASSERT_INT_EQAUL(OBJECT_ATOM, atom->type);
+    ASSERT_INT_EQAUL(OBJECT_ATOM_SYMBOL, atom->sub_type);
     ASSERT_STRING_EQUAL("a1", get_symbol_name(atom));
-    delete_Atom(atom);
+    delete_Object(atom);
   }
 
   {
-    Atom * atom;
+    Object * atom;
     ASSERT_INT_EQAUL(3, parse_Atom(" a1)", &atom));
-    ASSERT_INT_EQAUL(ATOM_SYMBOL, atom->type);
+    ASSERT_INT_EQAUL(OBJECT_ATOM, atom->type);
+    ASSERT_INT_EQAUL(OBJECT_ATOM_SYMBOL, atom->sub_type);
     ASSERT_STRING_EQUAL("a1", get_symbol_name(atom));
-    delete_Atom(atom);
+    delete_Object(atom);
   }
 
   {
-    Atom * atom;
+    Object * atom;
     ASSERT_INT_EQAUL(0, parse_Atom("(", &atom));
-    ASSERT_INT_EQAUL(ATOM_SYMBOL, atom->type);
+    ASSERT_INT_EQAUL(OBJECT_ATOM, atom->type);
+    ASSERT_INT_EQAUL(OBJECT_ATOM_SYMBOL, atom->sub_type);
     ASSERT_STRING_EQUAL("nil", get_symbol_name(atom));
-    delete_Atom(atom);
+    delete_Object(atom);
   }
 
   {
-    Atom * atom;
+    Object * atom;
     ASSERT_INT_EQAUL(1, parse_Atom(" (", &atom));
-    ASSERT_INT_EQAUL(ATOM_SYMBOL, atom->type);
+    ASSERT_INT_EQAUL(OBJECT_ATOM, atom->type);
+    ASSERT_INT_EQAUL(OBJECT_ATOM_SYMBOL, atom->sub_type);
     ASSERT_STRING_EQUAL("nil", get_symbol_name(atom));
-    delete_Atom(atom);
+    delete_Object(atom);
   }
 }

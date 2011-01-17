@@ -4,36 +4,33 @@
 #include "object_func.h"
 #include "cons_func.h"
 
-Object * new_Object()
+void my_free(void* p)
 {
-  Object * p = (Object *)malloc(sizeof(Object));
-  /* if(p == NULL) */
-  /*   xxxxx; */
-  return p;
-}
-
-Object * new_Object_with_Atom(Atom * atom)
-{
-  Object * p = new_Object();
-  p->ptr = (void*)atom;
-  p->type = OBJECT_ATOM;
-  return p;
-}
-
-Object * new_Object_with_Cons(Cons * cons)
-{
-  Object * p = new_Object();
-  p->ptr = (void*)cons;
-  p->type = OBJECT_CONS;
-  return p;
+  /* printf("%p\n", p); */
+  free(p);
 }
 
 void delete_Object(Object * object)
 {
-  if(object == NULL || object->ptr == NULL) return;
+  if(object == NULL) return;
 
   if(object->type == OBJECT_ATOM)
-    delete_Atom(object->ptr);
+  {
+    if(object->atom != NULL && object->sub_type == OBJECT_ATOM_SYMBOL)
+      delete_symbol((Symbol*)object->atom);
+  }
   else if(object->type == OBJECT_CONS)
-    delete_Cons(object->ptr);
+  {
+    if(object->car != NULL)
+    {
+      delete_Object(object->car);
+    }
+
+    if(object->cdr != NULL)
+    {
+      delete_Object(object->cdr);
+    }
+  }
+
+  my_free((void*)object);
 }

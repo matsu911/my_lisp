@@ -9,15 +9,20 @@ enum OBJECT_TYPE
   OBJECT_CONS,
 };
 
+enum OBJECT_ATOM_TYPE
+{
+  OBJECT_ATOM_NONE,
+  OBJECT_ATOM_INTEGER,
+  OBJECT_ATOM_SYMBOL,
+};
+
 typedef struct _Object
 {
   enum OBJECT_TYPE type;
-  void * ptr;
+  enum OBJECT_ATOM_TYPE sub_type;
+  void * car;
+  void * cdr;
+  void * atom;
 } Object;
-
-/* Object * new_Object(); */
-/* Object * new_Object_with_Atom(Atom * atom); */
-/* Object * new_Object_with_Cons(Cons * cons); */
-/* void delete_Object(Object * object); */
 
 #endif /* __OBJECT_H__ */

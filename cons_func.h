@@ -3,17 +3,14 @@
 #ifndef __CONS_FUNC_H__
 #define __CONS_FUNC_H__
 
-#include "cons.h"
 #include "atom.h"
 
-Cons * new_Cons();
-Cons * new_Cons_with_Atom_Atom(Atom * car, Atom * cdr);
-Cons * new_Cons_with_Atom_Cons(Atom * car, Cons * cdr);
+Object * new_Cons();
+Object * new_Cons_with_Atom_Atom(Object * car, Object * cdr);
+Object * new_Cons_with_Atom_Cons(Object * car, Object * cdr);
 
-void delete_Cons(Cons * cons);
+int parse_Cons(const char * str, Object ** cons);
 
-int parse_Cons(const char * str, Cons ** cons);
-
-void print_Cons(const Cons * cons);
+void print_Cons(const Object * cons);
 
 #endif /* __CONS_FUNC_H__ */
