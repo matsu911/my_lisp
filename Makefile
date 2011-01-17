@@ -8,10 +8,10 @@ TEST_OBJS = $(filter-out main.o,$(OBJS))
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 all: $(OBJS)
-	$(CC) -o lisp $?
+	$(CC) -o lisp $^
 
 unittest_main: $(TEST_OBJS)
-	$(CC) -o $@ $?
+	$(CC) -o $@ $^
 
 check: unittest_main
 	./unittest_main
