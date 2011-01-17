@@ -10,6 +10,7 @@ int parse_Atom(const char * str, Object ** atom);
 
 Object * new_Atom();
 Object * new_Atom_with_Symbol(Symbol * symbol);
+Object * new_Atom_with_string(const char * str);
 
 const char * get_symbol_name(const Object * atom);
 

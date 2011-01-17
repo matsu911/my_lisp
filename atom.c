@@ -18,10 +18,19 @@ Object * new_Atom()
 
 Object * new_Atom_with_Symbol(Symbol * symbol)
 {
-  Object * atom = new_Atom();
-  atom->type = OBJECT_ATOM;
+  Object * atom  = new_Atom();
+  atom->type     = OBJECT_ATOM;
   atom->sub_type = OBJECT_ATOM_SYMBOL;
-  atom->atom = (void*)symbol;
+  atom->atom     = (void*)symbol;
+  return atom;
+}
+
+Object * new_Atom_with_string(const char * str)
+{
+  Object * atom  = new_Atom();
+  atom->type     = OBJECT_ATOM;
+  atom->sub_type = OBJECT_ATOM_STRING;
+  atom->atom     = (void*)allocate_string(str);
   return atom;
 }
 
@@ -78,6 +87,33 @@ const char * get_symbol_name(const Object * atom)
     return ((Symbol*)atom->atom)->name;
 
   return NULL;
+}
+
+TEST_CASE(test_new_Atom_with_string)
+{
+  {
+    Object * atom = new_Atom_with_string("abc");
+    ASSERT_INT_EQAUL(OBJECT_ATOM, atom->type);
+    ASSERT_INT_EQAUL(OBJECT_ATOM_STRING, atom->sub_type);
+    ASSERT_STRING_EQUAL("abc", (char*)atom->atom);
+    delete_Object(atom);
+  }
+
+  {
+    Object * atom = new_Atom_with_string("");
+    ASSERT_INT_EQAUL(OBJECT_ATOM, atom->type);
+    ASSERT_INT_EQAUL(OBJECT_ATOM_STRING, atom->sub_type);
+    ASSERT_STRING_EQUAL("", (char*)atom->atom);
+    delete_Object(atom);
+  }
+
+  {
+    Object * atom = new_Atom_with_string(NULL);
+    ASSERT_INT_EQAUL(OBJECT_ATOM, atom->type);
+    ASSERT_INT_EQAUL(OBJECT_ATOM_STRING, atom->sub_type);
+    ASSERT_NULL(atom->atom);
+    delete_Object(atom);
+  }
 }
 
 TEST_CASE(test_parse_Atom)

@@ -211,6 +211,7 @@ TEST_CASE(test_next_char_while_not)
 
 char * allocate_string(const char * s)
 {
+  if(s == NULL) return NULL;
   int size = strlen(s);
   char * ret = (char*)malloc(sizeof(char) * (size + 1));
   strcpy(ret, s);
