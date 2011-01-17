@@ -58,10 +58,18 @@ int parse_Atom(const char * str, Atom ** atom)
   }
 
   *atom = new_Atom();
-  Symbol * symbol = new_symbol();
-  symbol->name = name;
-  (*atom)->ptr = symbol;
-  (*atom)->type = ATOM_SYMBOL;
+  if(strlen(name) > 0)
+  {
+    Symbol * symbol = new_symbol();
+    symbol->name = name;
+    (*atom)->ptr = symbol;
+    (*atom)->type = ATOM_SYMBOL;
+  }
+  else
+  {
+    (*atom)->ptr = new_symbol_nil();
+    (*atom)->type = ATOM_SYMBOL;
+  }
 
   return end - str;
 }
@@ -81,7 +89,7 @@ TEST_CASE(test_parse_Atom)
   {
     Atom * atom;
     ASSERT_INT_EQAUL(0, parse_Atom("", &atom));
-    ASSERT_STRING_EQUAL("", get_symbol_name(atom));
+    ASSERT_STRING_EQUAL("nil", get_symbol_name(atom));
     delete_Atom(atom);
   }
 
@@ -123,14 +131,14 @@ TEST_CASE(test_parse_Atom)
   {
     Atom * atom;
     ASSERT_INT_EQAUL(0, parse_Atom("(", &atom));
-    ASSERT_STRING_EQUAL("", get_symbol_name(atom));
+    ASSERT_STRING_EQUAL("nil", get_symbol_name(atom));
     delete_Atom(atom);
   }
 
   {
     Atom * atom;
     ASSERT_INT_EQAUL(1, parse_Atom(" (", &atom));
-    ASSERT_STRING_EQUAL("", get_symbol_name(atom));
+    ASSERT_STRING_EQUAL("nil", get_symbol_name(atom));
     delete_Atom(atom);
   }
 }
