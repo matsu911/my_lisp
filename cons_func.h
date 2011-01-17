@@ -8,6 +8,7 @@
 
 Cons * new_Cons();
 Cons * new_Cons_with_Atom_Atom(Atom * car, Atom * cdr);
+Cons * new_Cons_with_Atom_Cons(Atom * car, Cons * cdr);
 
 void delete_Cons(Cons * cons);
 

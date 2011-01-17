@@ -6,6 +6,12 @@
 #include "unittest.h"
 #include "stringutils.h"
 
+Cons * allocate_Cons()
+{
+  Cons * cons = (Cons*)malloc(sizeof(Cons));
+  return cons;
+}
+
 Cons * new_Cons()
 {
   return new_Cons_with_Atom_Atom(new_Atom_with_Symbol(new_symbol_nil()),
@@ -14,9 +20,17 @@ Cons * new_Cons()
 
 Cons * new_Cons_with_Atom_Atom(Atom * car, Atom * cdr)
 {
-  Cons * cons = (Cons*)malloc(sizeof(Cons));
+  Cons * cons = allocate_Cons();
   cons->car = new_Object_with_Atom(car);
   cons->cdr = new_Object_with_Atom(cdr);
+  return cons;
+}
+
+Cons * new_Cons_with_Atom_Cons(Atom * car, Cons * cdr)
+{
+  Cons * cons = allocate_Cons();
+  cons->car = new_Object_with_Atom(car);
+  cons->cdr = new_Object_with_Cons(cdr);
   return cons;
 }
 
@@ -26,10 +40,9 @@ void delete_Cons(Cons * cons)
   delete_Object(cons->cdr);
 }
 
-int parse_Cons(const char * str, Cons ** cons)
+int parse_Cons_internal(const char * str, Cons ** cons)
 {
   const char * p = str;
-  p += skip_chars_while_not(is_begin_list_char, p);
 
   if(is_end_string_char(*p))
   {
@@ -37,9 +50,10 @@ int parse_Cons(const char * str, Cons ** cons)
     return p - str;
   }
 
+  if(is_begin_list_char(*p)) ++p;
+
   *cons = new_Cons();
 
-  ++p;
   // car part
   if(is_begin_list_char(*p))
   {
@@ -63,20 +77,30 @@ int parse_Cons(const char * str, Cons ** cons)
     p += parse_Atom(p, &atom);
     (*cons)->cdr = new_Object_with_Atom(atom);
   }
-  else if(!is_begin_list_char(*p))
+  else if(is_end_string_char(next_char_not(is_white_space_char, p)) ||
+          is_end_list_char(next_char_not(is_white_space_char, p)))
   {
-    Atom * atom;
-    p += parse_Atom(p, &atom);
-    (*cons)->cdr = new_Object_with_Cons(new_Cons_with_Atom_Atom(atom, new_Atom_with_Symbol(new_symbol_nil())));
+    (*cons)->cdr = new_Object_with_Atom(new_Atom_with_Symbol(new_symbol_nil()));
   }
   else
   {
-    Cons * c;
-    p += parse_Cons(p, &c);
+    Cons * tmp;
+    p += parse_Cons_internal(p, &tmp);
+    (*cons)->cdr = new_Object_with_Cons(tmp);
   }
 
+  return p - str;
+}
+
+int parse_Cons(const char * str, Cons ** cons)
+{
+  const char * p = str;
+  p += skip_chars_while_not(is_begin_list_char, p);
+
+  p += parse_Cons_internal(p, cons);
+
   p += skip_chars_while_not(is_end_list_char, p);
-  ++p;
+  if(is_end_list_char(*p)) ++p;
 
   return p - str;
 }
@@ -141,6 +165,7 @@ TEST_CASE(test_parse_Cons)
   {
     Cons * cons;
     const char * s = " (a b) ";
+    parse_Cons(s, &cons);
     ASSERT_INT_EQAUL(6, parse_Cons(s, &cons));
     ASSERT_STRING_EQUAL("a", get_symbol_name(car_as_Atom(cons)));
     ASSERT_STRING_EQUAL("b", get_symbol_name(car_as_Atom(cdr_as_Cons(cons))));
@@ -148,15 +173,15 @@ TEST_CASE(test_parse_Cons)
     delete_Cons(cons);
   }
 
-  /* { */
-  /*   Cons * cons; */
-  /*   const char * s = " (a b c) "; */
-  /*   ASSERT_INT_EQAUL(8, parse_Cons(s, &cons)); */
-  /*   ASSERT_STRING_EQUAL("a", get_symbol_name(car_as_Atom(cons))); */
-  /*   ASSERT_STRING_EQUAL("b", get_symbol_name(car_as_Atom(cdr_as_Cons(cons)))); */
-  /*   ASSERT_STRING_EQUAL("c", get_symbol_name(car_as_Atom(cdr_as_Cons(cdr_as_Cons(cons))))); */
-  /*   ASSERT_STRING_EQUAL("nil", get_symbol_name(cdr_as_Atom(cdr_as_Cons(cdr_as_Cons(cons))))); */
-  /*   delete_Cons(cons); */
-  /* } */
+  {
+    Cons * cons;
+    const char * s = " (a b c) ";
+    ASSERT_INT_EQAUL(8, parse_Cons(s, &cons));
+    ASSERT_STRING_EQUAL("a", get_symbol_name(car_as_Atom(cons)));
+    ASSERT_STRING_EQUAL("b", get_symbol_name(car_as_Atom(cdr_as_Cons(cons))));
+    ASSERT_STRING_EQUAL("c", get_symbol_name(car_as_Atom(cdr_as_Cons(cdr_as_Cons(cons)))));
+    ASSERT_STRING_EQUAL("nil", get_symbol_name(cdr_as_Atom(cdr_as_Cons(cdr_as_Cons(cons)))));
+    delete_Cons(cons);
+  }
 
 }
