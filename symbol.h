@@ -3,6 +3,8 @@
 #ifndef __SYMBOL_H__
 #define __SYMBOL_H__
 
+#include "type.h"
+
 typedef struct _Symbol
 {
   int id;
@@ -10,7 +12,9 @@ typedef struct _Symbol
 } Symbol;
 
 Symbol * new_symbol();
-Symbol * new_symbol_nil();
+Symbol * symbol_nil();
 void delete_symbol(Symbol * symbol);
+
+LISP_BOOL is_symbol_nil(const Symbol * symbol);
 
 #endif /* __SYMBOL_H__ */

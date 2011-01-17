@@ -5,9 +5,7 @@
 
 #include "atom.h"
 
-Object * new_Cons();
-Object * new_Cons_with_Atom_Atom(Object * car, Object * cdr);
-Object * new_Cons_with_Atom_Cons(Object * car, Object * cdr);
+Object * new_Cons(Object * car, Object * cdr);
 
 int parse_Cons(const char * str, Object ** cons);
 

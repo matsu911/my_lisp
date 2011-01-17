@@ -15,21 +15,7 @@ Object * allocate_Cons()
   return cons;
 }
 
-Object * new_Cons()
-{
-  return new_Cons_with_Atom_Atom(new_Atom_with_Symbol(new_symbol_nil()),
-                                 new_Atom_with_Symbol(new_symbol_nil()));
-}
-
-Object * new_Cons_with_Atom_Atom(Object * car, Object * cdr)
-{
-  Object * cons = allocate_Cons();
-  cons->car = car;
-  cons->cdr = cdr;
-  return cons;
-}
-
-Object * new_Cons_with_Atom_Cons(Object * car, Object * cdr)
+Object * new_Cons(Object * car, Object * cdr)
 {
   Object * cons = allocate_Cons();
   cons->car = car;
@@ -49,7 +35,8 @@ int parse_Cons_internal(const char * str, Object ** cons)
     return p - str;
   }
 
-  *cons = new_Cons();
+  *cons = new_Cons(new_Atom_with_Symbol(symbol_nil()),
+                   new_Atom_with_Symbol(symbol_nil()));
 
   LISP_BOOL begin_with_begin_list_char = LISP_FALSE;
   if(is_begin_list_char(*p))
@@ -87,7 +74,7 @@ int parse_Cons_internal(const char * str, Object ** cons)
   else if(is_end_string_char(*p) ||
           is_end_list_char(*p))
   {
-    (*cons)->cdr = new_Atom_with_Symbol(new_symbol_nil());
+    (*cons)->cdr = new_Atom_with_Symbol(symbol_nil());
   }
   else
   {

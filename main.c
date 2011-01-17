@@ -24,8 +24,8 @@
 /* Cons * new_cons() */
 /* { */
 /*   Cons * p = (Cons*)malloc(sizeof(Cons)); */
-/*   p->car = (void*)new_symbol_nil(); */
-/*   p->cdr = (void*)new_symbol_nil(); */
+/*   p->car = (void*)symbol_nil(); */
+/*   p->cdr = (void*)symbol_nil(); */
 /*   return p; */
 /* } */
 

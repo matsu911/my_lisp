@@ -62,7 +62,7 @@ int parse_Atom(const char * str, Object ** atom)
   }
   else
   {
-    (*atom)->atom     = new_symbol_nil();
+    (*atom)->atom     = symbol_nil();
     (*atom)->type     = OBJECT_ATOM;
     (*atom)->sub_type = OBJECT_ATOM_SYMBOL;
   }
