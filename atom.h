@@ -9,7 +9,7 @@
 int parse_Atom(const char * str, lisp_object ** atom);
 
 lisp_object * new_Atom();
-lisp_object * new_Atom_with_symbol(symbol * sym);
+lisp_object * new_Atom_with_lisp_symbol(lisp_symbol * sym);
 lisp_object * new_Atom_with_string(const char * str);
 
 const char * get_symbol_name(const lisp_object * atom);

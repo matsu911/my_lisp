@@ -20,7 +20,7 @@ TEST_CASE(test_next_char_while_not);
 TEST_CASE(test_allocate_string);
 TEST_CASE(test_parse_Cons_internal);
 TEST_CASE(test_eval);
-TEST_CASE(test_is_symbol_nil);
+TEST_CASE(test_is_lisp_symbol_nil);
 TEST_CASE(test_new_Atom_with_string);
 
 int main()
@@ -45,7 +45,7 @@ int main()
   REGISTER_TEST_CASE(test_allocate_string);
   REGISTER_TEST_CASE(test_parse_Cons_internal);
   REGISTER_TEST_CASE(test_eval);
-  REGISTER_TEST_CASE(test_is_symbol_nil);
+  REGISTER_TEST_CASE(test_is_lisp_symbol_nil);
   REGISTER_TEST_CASE(test_new_Atom_with_string);
 
   UNITTEST_MAIN_END();

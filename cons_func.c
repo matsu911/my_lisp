@@ -35,8 +35,8 @@ int parse_Cons_internal(const char * str, lisp_object ** cons)
     return p - str;
   }
 
-  *cons = new_Cons(new_Atom_with_symbol(symbol_nil()),
-                   new_Atom_with_symbol(symbol_nil()));
+  *cons = new_Cons(new_Atom_with_lisp_symbol(lisp_symbol_nil()),
+                   new_Atom_with_lisp_symbol(lisp_symbol_nil()));
 
   boolean begin_with_begin_list_char = FALSE;
   if(is_begin_list_char(*p))
@@ -74,7 +74,7 @@ int parse_Cons_internal(const char * str, lisp_object ** cons)
   else if(is_end_string_char(*p) ||
           is_end_list_char(*p))
   {
-    (*cons)->cdr = new_Atom_with_symbol(symbol_nil());
+    (*cons)->cdr = new_Atom_with_lisp_symbol(lisp_symbol_nil());
   }
   else
   {

@@ -5,23 +5,23 @@
 #include "stringutils.h"
 #include "unittest.h"
 
-symbol LISP_SYMBOL_NIL = { 0, "nil" };
+lisp_symbol LISP_SYMBOL_NIL = { 0, "nil" };
 
-symbol * symbol_nil()
+lisp_symbol * lisp_symbol_nil()
 {
   return &LISP_SYMBOL_NIL;
 }
 
-symbol * symbol_allocate()
+lisp_symbol * lisp_symbol_allocate()
 {
-  symbol * p = (symbol*)malloc(sizeof(symbol));
+  lisp_symbol * p = (lisp_symbol*)malloc(sizeof(lisp_symbol));
   
   return p;
 }
 
-void symbol_free(symbol * sym)
+void lisp_symbol_free(lisp_symbol * sym)
 {
-  if(sym == NULL || is_symbol_nil(sym)) return;
+  if(sym == NULL || is_lisp_symbol_nil(sym)) return;
 
   if(sym->name)
     free(sym->name);
@@ -29,7 +29,7 @@ void symbol_free(symbol * sym)
   free(sym);
 }
 
-boolean is_symbol_nil(const symbol * sym)
+boolean is_lisp_symbol_nil(const lisp_symbol * sym)
 {
   if(sym == &LISP_SYMBOL_NIL)
     return TRUE;
@@ -37,7 +37,7 @@ boolean is_symbol_nil(const symbol * sym)
     return FALSE;
 }
 
-TEST_CASE(test_is_symbol_nil)
+TEST_CASE(test_is_lisp_symbol_nil)
 {
-  ASSERT_TRUE(is_symbol_nil(symbol_nil()));
+  ASSERT_TRUE(is_lisp_symbol_nil(lisp_symbol_nil()));
 }

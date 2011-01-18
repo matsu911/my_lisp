@@ -5,16 +5,16 @@
 
 #include "type.h"
 
-typedef struct _symbol
+typedef struct _lisp_symbol
 {
   int id;
   char * name;
-} symbol;
+} lisp_symbol;
 
-symbol * symbol_allocate();
-symbol * symbol_nil();
-void symbol_free(symbol * sym);
+lisp_symbol * lisp_symbol_allocate();
+lisp_symbol * lisp_symbol_nil();
+void lisp_symbol_free(lisp_symbol * sym);
 
-boolean is_symbol_nil(const symbol * sym);
+boolean is_lisp_symbol_nil(const lisp_symbol * sym);
 
 #endif /* __SYMBOL_H__ */

@@ -16,7 +16,7 @@ lisp_object * new_Atom()
   return atom;
 }
 
-lisp_object * new_Atom_with_symbol(symbol * sym)
+lisp_object * new_Atom_with_lisp_symbol(lisp_symbol * sym)
 {
   lisp_object * atom  = new_Atom();
   atom->type     = LISP_OBJECT_ATOM;
@@ -63,7 +63,7 @@ int parse_Atom(const char * str, lisp_object ** atom)
   *atom = new_Atom();
   if(strlen(name) > 0)
   {
-    symbol * sym      = symbol_allocate();
+    lisp_symbol * sym      = lisp_symbol_allocate();
     sym->name         = name;
     (*atom)->atom     = sym;
     (*atom)->type     = LISP_OBJECT_ATOM;
@@ -71,7 +71,7 @@ int parse_Atom(const char * str, lisp_object ** atom)
   }
   else
   {
-    (*atom)->atom     = symbol_nil();
+    (*atom)->atom     = lisp_symbol_nil();
     (*atom)->type     = LISP_OBJECT_ATOM;
     (*atom)->sub_type = LISP_OBJECT_ATOM_SYMBOL;
   }
@@ -84,7 +84,7 @@ const char * get_symbol_name(const lisp_object * atom)
   if(atom == NULL) return NULL;
 
   if(atom->type == LISP_OBJECT_ATOM && atom->sub_type == LISP_OBJECT_ATOM_SYMBOL && atom->atom)
-    return ((symbol*)atom->atom)->name;
+    return ((lisp_symbol*)atom->atom)->name;
 
   return NULL;
 }
