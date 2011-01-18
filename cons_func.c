@@ -211,7 +211,7 @@ TEST_CASE(test_parse_Cons_internal)
     /* print_Cons(cons); */
     ASSERT_STRING_EQUAL("a", get_symbol_name(car_as_lisp_object(cons)));
     ASSERT_STRING_EQUAL("nil", get_symbol_name(nth_cdr(cons, 0)));
-    lisp_object_delete(cons);
+    lisp_object_free(cons);
   }
 
   {
@@ -222,7 +222,7 @@ TEST_CASE(test_parse_Cons_internal)
     ASSERT_STRING_EQUAL("a", get_symbol_name(nth_as_lisp_object(cons, 0)));
     ASSERT_STRING_EQUAL("b", get_symbol_name(nth_as_lisp_object(cons, 1)));
     ASSERT_STRING_EQUAL("nil", get_symbol_name(nth_cdr(cons, 1)));
-    lisp_object_delete(cons);
+    lisp_object_free(cons);
   }
 
   {
@@ -234,7 +234,7 @@ TEST_CASE(test_parse_Cons_internal)
     ASSERT_STRING_EQUAL("a", get_symbol_name(nth_as_lisp_object(car, 0)));
     ASSERT_STRING_EQUAL("nil", get_symbol_name(cdr_as_lisp_object(car)));
     ASSERT_STRING_EQUAL("nil", get_symbol_name(cdr_as_lisp_object(cons)));
-    lisp_object_delete(cons);
+    lisp_object_free(cons);
   }
 
   {
@@ -247,7 +247,7 @@ TEST_CASE(test_parse_Cons_internal)
     ASSERT_STRING_EQUAL("a", get_symbol_name(nth_as_lisp_object(caar, 0)));
     ASSERT_STRING_EQUAL("nil", get_symbol_name(cdr_as_lisp_object(caar)));
     ASSERT_STRING_EQUAL("nil", get_symbol_name(cdr_as_lisp_object(cons)));
-    lisp_object_delete(cons);
+    lisp_object_free(cons);
   }
 
   {
@@ -261,7 +261,7 @@ TEST_CASE(test_parse_Cons_internal)
     ASSERT_STRING_EQUAL("b", get_symbol_name(nth_as_lisp_object(caar, 1)));
     ASSERT_STRING_EQUAL("nil", get_symbol_name(car->cdr));
     ASSERT_STRING_EQUAL("nil", get_symbol_name(cdr_as_lisp_object(cons)));
-    lisp_object_delete(cons);
+    lisp_object_free(cons);
   }
 }
 
@@ -281,7 +281,7 @@ TEST_CASE(test_parse_Cons)
     ASSERT_INT_EQAUL(4, parse_Cons(s, &cons));
     ASSERT_STRING_EQUAL("a", get_symbol_name(car_as_lisp_object(cons)));
     ASSERT_STRING_EQUAL("nil", get_symbol_name(nth_cdr(cons, 0)));
-    lisp_object_delete(cons);
+    lisp_object_free(cons);
   }
 
   {
@@ -290,7 +290,7 @@ TEST_CASE(test_parse_Cons)
     ASSERT_INT_EQAUL(7, parse_Cons(s, &cons));
     ASSERT_STRING_EQUAL("a", get_symbol_name(car_as_lisp_object(cons)));
     ASSERT_STRING_EQUAL("b", get_symbol_name(nth_cdr(cons, 0)));
-    lisp_object_delete(cons);
+    lisp_object_free(cons);
   }
 
   {
@@ -299,7 +299,7 @@ TEST_CASE(test_parse_Cons)
     ASSERT_INT_EQAUL(10, parse_Cons(s, &cons));
     ASSERT_STRING_EQUAL("a", get_symbol_name(car_as_lisp_object(cons)));
     ASSERT_STRING_EQUAL("b", get_symbol_name(nth_cdr(cons, 0)));
-    lisp_object_delete(cons);
+    lisp_object_free(cons);
   }
 
   {
@@ -308,7 +308,7 @@ TEST_CASE(test_parse_Cons)
     ASSERT_INT_EQAUL(22, parse_Cons(s, &cons));
     ASSERT_STRING_EQUAL("a1b2#!a", get_symbol_name(car_as_lisp_object(cons)));
     ASSERT_STRING_EQUAL("b*0f1@:", get_symbol_name(cdr_as_lisp_object(cons)));
-    lisp_object_delete(cons);
+    lisp_object_free(cons);
   }
 
   {
@@ -319,7 +319,7 @@ TEST_CASE(test_parse_Cons)
     ASSERT_STRING_EQUAL("a", get_symbol_name(nth_as_lisp_object(cons, 0)));
     ASSERT_STRING_EQUAL("b", get_symbol_name(nth_as_lisp_object(cons, 1)));
     ASSERT_STRING_EQUAL("nil", get_symbol_name(nth_cdr(cons, 1)));
-    lisp_object_delete(cons);
+    lisp_object_free(cons);
   }
 
   {
@@ -330,7 +330,7 @@ TEST_CASE(test_parse_Cons)
     ASSERT_STRING_EQUAL("b", get_symbol_name(nth_as_lisp_object(cons, 1)));
     ASSERT_STRING_EQUAL("c", get_symbol_name(nth_as_lisp_object(cons, 2)));
     ASSERT_STRING_EQUAL("nil", get_symbol_name(nth_cdr(cons, 2)));
-    lisp_object_delete(cons);
+    lisp_object_free(cons);
   }
 
   {
@@ -341,7 +341,7 @@ TEST_CASE(test_parse_Cons)
     ASSERT_STRING_EQUAL("b", get_symbol_name(nth_as_lisp_object(cons, 1)));
     ASSERT_STRING_EQUAL("c", get_symbol_name(nth_as_lisp_object(cons, 2)));
     ASSERT_STRING_EQUAL("d", get_symbol_name(nth_cdr(cons, 2)));
-    lisp_object_delete(cons);
+    lisp_object_free(cons);
   }
 
   {
@@ -350,7 +350,7 @@ TEST_CASE(test_parse_Cons)
     ASSERT_INT_EQAUL(6, parse_Cons(s, &cons));
     ASSERT_STRING_EQUAL("a", get_symbol_name(car_as_lisp_object(car_as_lisp_object(cons))));
     ASSERT_STRING_EQUAL("nil", get_symbol_name(nth_cdr(cons, 0)));
-    lisp_object_delete(cons);
+    lisp_object_free(cons);
   }
 
   {
@@ -361,7 +361,7 @@ TEST_CASE(test_parse_Cons)
     ASSERT_STRING_EQUAL("a", get_symbol_name(nth_as_lisp_object(car, 0)));
     ASSERT_STRING_EQUAL("b", get_symbol_name(nth_as_lisp_object(car, 1)));
     ASSERT_STRING_EQUAL("nil", get_symbol_name(nth_cdr(car, 1)));
-    lisp_object_delete(cons);
+    lisp_object_free(cons);
   }
 
   {
@@ -375,6 +375,6 @@ TEST_CASE(test_parse_Cons)
     ASSERT_STRING_EQUAL("c", get_symbol_name(nth_as_lisp_object(cadr, 1)));
     ASSERT_STRING_EQUAL("nil", get_symbol_name(nth_cdr(cadr, 1)));
     ASSERT_STRING_EQUAL("nil", get_symbol_name(nth_cdr(cdr, 0)));
-    lisp_object_delete(cons);
+    lisp_object_free(cons);
   }
 }

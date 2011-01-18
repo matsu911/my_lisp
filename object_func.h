@@ -5,6 +5,6 @@
 
 #include "object.h"
 
-void lisp_object_delete(lisp_object * object);
+void lisp_object_free(lisp_object * object);
 
 #endif /* __OBJECT_FUNC_H__ */

@@ -10,7 +10,7 @@ void my_free(void* p)
   free(p);
 }
 
-void lisp_object_delete(lisp_object * object)
+void lisp_object_free(lisp_object * object)
 {
   if(object == NULL) return;
 
@@ -23,12 +23,12 @@ void lisp_object_delete(lisp_object * object)
   {
     if(object->car != NULL)
     {
-      lisp_object_delete(object->car);
+      lisp_object_free(object->car);
     }
 
     if(object->cdr != NULL)
     {
-      lisp_object_delete(object->cdr);
+      lisp_object_free(object->cdr);
     }
   }
 
