@@ -5,16 +5,16 @@
 
 #include "type.h"
 
-typedef struct _Symbol
+typedef struct _symbol
 {
   int id;
   char * name;
-} Symbol;
+} symbol;
 
-Symbol * new_symbol();
-Symbol * symbol_nil();
-void delete_symbol(Symbol * symbol);
+symbol * new_symbol();
+symbol * symbol_nil();
+void delete_symbol(symbol * sym);
 
-boolean is_symbol_nil(const Symbol * symbol);
+boolean is_symbol_nil(const symbol * sym);
 
 #endif /* __SYMBOL_H__ */

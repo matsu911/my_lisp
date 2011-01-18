@@ -17,7 +17,7 @@ void delete_Object(Object * object)
   if(object->type == OBJECT_ATOM)
   {
     if(object->atom != NULL && object->sub_type == OBJECT_ATOM_SYMBOL)
-      delete_symbol((Symbol*)object->atom);
+      delete_symbol((symbol*)object->atom);
   }
   else if(object->type == OBJECT_CONS)
   {

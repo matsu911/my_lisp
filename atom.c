@@ -16,12 +16,12 @@ Object * new_Atom()
   return atom;
 }
 
-Object * new_Atom_with_Symbol(Symbol * symbol)
+Object * new_Atom_with_symbol(symbol * sym)
 {
   Object * atom  = new_Atom();
   atom->type     = OBJECT_ATOM;
   atom->sub_type = OBJECT_ATOM_SYMBOL;
-  atom->atom     = (void*)symbol;
+  atom->atom     = (void*)sym;
   return atom;
 }
 
@@ -63,9 +63,9 @@ int parse_Atom(const char * str, Object ** atom)
   *atom = new_Atom();
   if(strlen(name) > 0)
   {
-    Symbol * symbol   = new_symbol();
-    symbol->name      = name;
-    (*atom)->atom     = symbol;
+    symbol * sym      = new_symbol();
+    sym->name         = name;
+    (*atom)->atom     = sym;
     (*atom)->type     = OBJECT_ATOM;
     (*atom)->sub_type = OBJECT_ATOM_SYMBOL;
   }
@@ -84,7 +84,7 @@ const char * get_symbol_name(const Object * atom)
   if(atom == NULL) return NULL;
 
   if(atom->type == OBJECT_ATOM && atom->sub_type == OBJECT_ATOM_SYMBOL && atom->atom)
-    return ((Symbol*)atom->atom)->name;
+    return ((symbol*)atom->atom)->name;
 
   return NULL;
 }
