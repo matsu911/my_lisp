@@ -15,6 +15,6 @@ Symbol * new_symbol();
 Symbol * symbol_nil();
 void delete_symbol(Symbol * symbol);
 
-LISP_BOOL is_symbol_nil(const Symbol * symbol);
+boolean is_symbol_nil(const Symbol * symbol);
 
 #endif /* __SYMBOL_H__ */

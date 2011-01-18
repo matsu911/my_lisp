@@ -38,10 +38,10 @@ int parse_Cons_internal(const char * str, Object ** cons)
   *cons = new_Cons(new_Atom_with_Symbol(symbol_nil()),
                    new_Atom_with_Symbol(symbol_nil()));
 
-  LISP_BOOL begin_with_begin_list_char = LISP_FALSE;
+  boolean begin_with_begin_list_char = FALSE;
   if(is_begin_list_char(*p))
   {
-    begin_with_begin_list_char = LISP_TRUE;
+    begin_with_begin_list_char = TRUE;
   }
 
   // car part
@@ -83,7 +83,7 @@ int parse_Cons_internal(const char * str, Object ** cons)
     (*cons)->cdr = tmp;
   }
 
-  if(begin_with_begin_list_char == LISP_TRUE)
+  if(begin_with_begin_list_char == TRUE)
   {
     p += skip_chars_while_not(is_end_list_char, p);
     if(is_end_list_char(*p)) ++p;

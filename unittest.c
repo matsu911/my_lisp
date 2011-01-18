@@ -2,12 +2,12 @@
 
 #include "unittest.h"
 
-LISP_BOOL is_all_passed(Test_Result * result)
+boolean is_all_passed(Test_Result * result)
 {
   if(result->num_failed == 0)
-    return LISP_TRUE;
+    return TRUE;
   else
-    return LISP_FALSE;
+    return FALSE;
 }
 
 void print_test_result(Test_Result * result)

@@ -3,8 +3,8 @@
 #ifndef __TYPE_H__
 #define __TYPE_H__
 
-#define LISP_BOOL  int
-#define LISP_TRUE  1
-#define LISP_FALSE 0
+#define boolean  int
+#define TRUE  1
+#define FALSE 0
 
 #endif /* __TYPE_H__ */ 

@@ -30,8 +30,8 @@
 /* } */
 
 /* #define nil NULL */
-#define LISP_TRUE 1
-#define LISP_FALSE 0
+#define TRUE 1
+#define FALSE 0
 
 int is_integer(char * str)
 {
@@ -39,17 +39,17 @@ int is_integer(char * str)
   while(*p != '\0')
   {
     if(*p < '0' || *p > '9')
-      return LISP_FALSE;
+      return FALSE;
     ++p;
   }
-  return LISP_TRUE;
+  return TRUE;
 }
 
 /* Atom * parse_atom(char * str) */
 /* { */
 /*   Atom *p = new_atom(); */
 
-/*   if(is_integer(str) == LISP_TRUE) */
+/*   if(is_integer(str) == TRUE) */
 /*   { */
 /*     p->ptr  = new_int(atoi(str)); */
 /*     p->type = ATOM_INTEGER; */

@@ -10,7 +10,7 @@
 
 #define ASSERT_TRUE(expression)                 \
   {                                             \
-    if((expression) == LISP_TRUE)               \
+    if((expression) == TRUE)                    \
     {                                           \
       ++result->num_passed;                     \
       fprintf(stdout, ".");                     \
@@ -70,7 +70,7 @@ typedef struct _Test_Result
   int num_failed;
 } Test_Result;
 
-LISP_BOOL is_all_passed(Test_Result * result);
+boolean is_all_passed(Test_Result * result);
 
 void print_test_result(Test_Result * result);
 
@@ -93,27 +93,27 @@ void print_test_result(Test_Result * result);
   int num_test_cases = 0;                       \
   Test_Result ** results = NULL;                \
 
-#define UNITTEST_MAIN_END()                             \
-  int num_passed = 0;                                   \
-  int num_failed = 0;                                   \
-  int i = 0;                                            \
-  for(;i<num_test_cases;++i)                            \
-  {                                                     \
-    if(results[i] != NULL)                              \
-    {                                                   \
-      if(is_all_passed(results[i]) == LISP_TRUE)        \
-        ++num_passed;                                   \
-      else                                              \
-        ++num_failed;                                   \
-      free((void*)results[i]);                          \
-    }                                                   \
-  }                                                     \
-                                                        \
-  int num_test = num_passed + num_failed;               \
-  printf("\n");                                         \
-  printf("%d/%d passed\n", num_passed, num_test);       \
-  if(num_failed > 0)                                    \
-    printf("%d/%d failed\n", num_failed, num_test);     \
-  return 0;                                             \
+#define UNITTEST_MAIN_END()                         \
+  int num_passed = 0;                               \
+  int num_failed = 0;                               \
+  int i = 0;                                        \
+  for(;i<num_test_cases;++i)                        \
+  {                                                 \
+    if(results[i] != NULL)                          \
+    {                                               \
+      if(is_all_passed(results[i]) == TRUE)         \
+        ++num_passed;                               \
+      else                                          \
+        ++num_failed;                               \
+      free((void*)results[i]);                      \
+    }                                               \
+  }                                                 \
+                                                    \
+  int num_test = num_passed + num_failed;           \
+  printf("\n");                                     \
+  printf("%d/%d passed\n", num_passed, num_test);   \
+  if(num_failed > 0)                                \
+    printf("%d/%d failed\n", num_failed, num_test); \
+  return 0;                                         \
 
 #endif /* __UNITTEST_H__ */ 

@@ -29,12 +29,12 @@ void delete_symbol(Symbol * symbol)
   free(symbol);
 }
 
-LISP_BOOL is_symbol_nil(const Symbol * symbol)
+boolean is_symbol_nil(const Symbol * symbol)
 {
   if(symbol == &LISP_SYMBOL_NIL)
-    return LISP_TRUE;
+    return TRUE;
   else
-    return LISP_FALSE;
+    return FALSE;
 }
 
 TEST_CASE(test_is_symbol_nil)
