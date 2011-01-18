@@ -11,7 +11,7 @@ typedef struct _symbol
   char * name;
 } symbol;
 
-symbol * new_symbol();
+symbol * symbol_allocate();
 symbol * symbol_nil();
 void symbol_free(symbol * sym);
 

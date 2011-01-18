@@ -12,7 +12,7 @@ symbol * symbol_nil()
   return &LISP_SYMBOL_NIL;
 }
 
-symbol * new_symbol()
+symbol * symbol_allocate()
 {
   symbol * p = (symbol*)malloc(sizeof(symbol));
   

@@ -63,7 +63,7 @@ int parse_Atom(const char * str, lisp_object ** atom)
   *atom = new_Atom();
   if(strlen(name) > 0)
   {
-    symbol * sym      = new_symbol();
+    symbol * sym      = symbol_allocate();
     sym->name         = name;
     (*atom)->atom     = sym;
     (*atom)->type     = LISP_OBJECT_ATOM;
