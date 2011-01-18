@@ -19,7 +19,7 @@ symbol * new_symbol()
   return p;
 }
 
-void delete_symbol(symbol * sym)
+void symbol_free(symbol * sym)
 {
   if(sym == NULL || is_symbol_nil(sym)) return;
 

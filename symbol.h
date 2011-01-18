@@ -13,7 +13,7 @@ typedef struct _symbol
 
 symbol * new_symbol();
 symbol * symbol_nil();
-void delete_symbol(symbol * sym);
+void symbol_free(symbol * sym);
 
 boolean is_symbol_nil(const symbol * sym);
 

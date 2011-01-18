@@ -17,7 +17,7 @@ void lisp_object_free(lisp_object * object)
   if(object->type == LISP_OBJECT_ATOM)
   {
     if(object->atom != NULL && object->sub_type == LISP_OBJECT_ATOM_SYMBOL)
-      delete_symbol((symbol*)object->atom);
+      symbol_free((symbol*)object->atom);
   }
   else if(object->type == LISP_OBJECT_CONS)
   {
