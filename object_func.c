@@ -10,25 +10,25 @@ void my_free(void* p)
   free(p);
 }
 
-void delete_Object(Object * object)
+void lisp_object_delete(lisp_object * object)
 {
   if(object == NULL) return;
 
-  if(object->type == OBJECT_ATOM)
+  if(object->type == LISP_OBJECT_ATOM)
   {
-    if(object->atom != NULL && object->sub_type == OBJECT_ATOM_SYMBOL)
+    if(object->atom != NULL && object->sub_type == LISP_OBJECT_ATOM_SYMBOL)
       delete_symbol((symbol*)object->atom);
   }
-  else if(object->type == OBJECT_CONS)
+  else if(object->type == LISP_OBJECT_CONS)
   {
     if(object->car != NULL)
     {
-      delete_Object(object->car);
+      lisp_object_delete(object->car);
     }
 
     if(object->cdr != NULL)
     {
-      delete_Object(object->cdr);
+      lisp_object_delete(object->cdr);
     }
   }
 

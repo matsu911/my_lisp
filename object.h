@@ -3,28 +3,28 @@
 #ifndef __OBJECT_H__
 #define __OBJECT_H__
 
-enum OBJECT_TYPE
+typedef enum _LISP_OBJECT_TYPE
 {
-  OBJECT_ATOM,
-  OBJECT_CONS,
-};
+  LISP_OBJECT_ATOM,
+  LISP_OBJECT_CONS,
+} LISP_OBJECT_TYPE;
 
-enum OBJECT_ATOM_TYPE
+typedef enum _LISP_OBJECT_ATOM_TYPE
 {
-  OBJECT_ATOM_NONE,
-  OBJECT_ATOM_SYMBOL,
-  OBJECT_ATOM_CHAR,
-  OBJECT_ATOM_INTEGER,
-  OBJECT_ATOM_STRING,
-};
+  LISP_OBJECT_ATOM_NONE,
+  LISP_OBJECT_ATOM_SYMBOL,
+  LISP_OBJECT_ATOM_CHAR,
+  LISP_OBJECT_ATOM_INTEGER,
+  LISP_OBJECT_ATOM_STRING,
+} LISP_OBJECT_ATOM_TYPE;
 
-typedef struct _Object
+typedef struct _lisp_object
 {
-  enum OBJECT_TYPE type;
-  enum OBJECT_ATOM_TYPE sub_type;
+  LISP_OBJECT_TYPE type;
+  LISP_OBJECT_ATOM_TYPE sub_type;
   void * car;
   void * cdr;
   void * atom;
-} Object;
+} lisp_object;
 
 #endif /* __OBJECT_H__ */

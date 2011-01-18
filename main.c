@@ -7,7 +7,7 @@
 #include "atom.h"
 #include "unittest.h"
 
-/* Object * new_atom() */
+/* lisp_object * new_atom() */
 /* { */
 /*   Atom *p = (Atom*)malloc(sizeof(Atom)); */
 /*   p->ptr = NULL; */

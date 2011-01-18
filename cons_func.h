@@ -5,10 +5,10 @@
 
 #include "atom.h"
 
-Object * new_Cons(Object * car, Object * cdr);
+lisp_object * new_Cons(lisp_object * car, lisp_object * cdr);
 
-int parse_Cons(const char * str, Object ** cons);
+int parse_Cons(const char * str, lisp_object ** cons);
 
-void print_Cons(const Object * cons);
+void print_Cons(const lisp_object * cons);
 
 #endif /* __CONS_FUNC_H__ */
