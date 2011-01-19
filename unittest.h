@@ -23,9 +23,10 @@
     }                                           \
   }                                             \
 
-#define ASSERT_FALSE(expression) ASSERT_TRUE(!expression)
+#define ASSERT_FALSE(expression) ASSERT_TRUE(!(expression))
 
-#define ASSERT_NULL(expression) ASSERT_TRUE(expression == NULL)
+#define ASSERT_NULL(expression) ASSERT_TRUE((expression) == NULL)
+#define ASSERT_NOT_NULL(expression) ASSERT_TRUE((expression) != NULL)
 
 #define ASSERT_INT_EQAUL(expected, value)           \
   {                                                 \
