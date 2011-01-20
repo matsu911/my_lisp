@@ -121,7 +121,7 @@ static boolean match_int(void * a, void * b)
 /*     printf("%d ", *(int*)list->data); */
 /* } */
 
-TEST_CASE(test_linked_list_append)
+TEST_CASE(test_linked_list)
 {
   ASSERT_INT_EQAUL(0, linked_list_size(NULL));
 

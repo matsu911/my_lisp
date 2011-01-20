@@ -22,7 +22,7 @@ TEST_CASE(test_parse_Cons_internal);
 TEST_CASE(test_eval);
 TEST_CASE(test_is_lisp_symbol_nil);
 TEST_CASE(test_new_Atom_with_string);
-TEST_CASE(test_linked_list_append);
+TEST_CASE(test_linked_list);
 
 int main()
 {
@@ -48,7 +48,7 @@ int main()
   REGISTER_TEST_CASE(test_eval);
   REGISTER_TEST_CASE(test_is_lisp_symbol_nil);
   REGISTER_TEST_CASE(test_new_Atom_with_string);
-  REGISTER_TEST_CASE(test_linked_list_append);
+  REGISTER_TEST_CASE(test_linked_list);
 
   UNITTEST_MAIN_END();
 }
