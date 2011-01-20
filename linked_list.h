@@ -11,6 +11,7 @@ typedef struct _linked_list
   void * data;
 } linked_list;
 
+linked_list * linked_list_insert(linked_list * list, void * item);
 linked_list * linked_list_append(linked_list * list, void * item);
 linked_list * linked_list_delete(linked_list * list, linked_list * p);
 

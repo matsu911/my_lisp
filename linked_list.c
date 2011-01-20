@@ -4,7 +4,7 @@
 #include "linked_list.h"
 #include "unittest.h"
 
-linked_list * linked_list_append(linked_list * list, void * item)
+linked_list * linked_list_insert(linked_list * list, void * item)
 {
   linked_list * p = linked_list_allocate(item);
   if(list->next)
@@ -13,6 +13,15 @@ linked_list * linked_list_append(linked_list * list, void * item)
   list->next = p;
 
   return p;
+}
+
+linked_list * linked_list_append(linked_list * list, void * item)
+{
+  linked_list * p = list;
+  while(p && p->next)
+    p = (linked_list*)p->next;
+
+  return linked_list_insert(p, item);
 }
 
 linked_list * linked_list_delete(linked_list * list, linked_list * p)
@@ -133,7 +142,7 @@ TEST_CASE(test_linked_list)
   for(int i = 0; i < 5; ++i)
   {
     int * p = array + i;
-    tmp = linked_list_append(tmp, (void*)p);
+    tmp = linked_list_insert(tmp, (void*)p);
     ASSERT_INT_EQAUL(*p, *(int*)(tmp->data));
     ASSERT_NULL(tmp->next);
     ASSERT_INT_EQAUL(*p, *(int*)linked_list_nth(root, i + 1)->data);

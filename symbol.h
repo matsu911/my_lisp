@@ -17,4 +17,7 @@ void lisp_symbol_free(lisp_symbol * sym);
 
 boolean is_lisp_symbol_nil(const lisp_symbol * sym);
 
+lisp_symbol * lisp_symbol_make(const char * name);
+lisp_symbol * lisp_symbol_lookup(const char * name);
+
 #endif /* __SYMBOL_H__ */
