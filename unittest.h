@@ -28,9 +28,9 @@
 #define ASSERT_NULL(expression) ASSERT_TRUE((expression) == NULL)
 #define ASSERT_NOT_NULL(expression) ASSERT_TRUE((expression) != NULL)
 
-#define ASSERT_INT_EQAUL(expected, value)           \
+#define ASSERT_INT_EQUAL(expected, value)           \
   {                                                 \
-    if(expected == value)                           \
+    if((expected) == (value))                       \
     {                                               \
       ++result->num_passed;                         \
       fprintf(stdout, ".");                         \
@@ -41,13 +41,30 @@
       fprintf(stdout, "\nfailed at %s:%d\n",        \
               __FILE__,  __LINE__);                 \
       fprintf(stdout, " expected %d, but got %d\n", \
-              expected, value);                     \
+              (expected), (value));                 \
+    }                                               \
+  }                                                 \
+
+#define ASSERT_POINTER_EQUAL(expected, value)       \
+  {                                                 \
+    if((expected) == (value))                       \
+    {                                               \
+      ++result->num_passed;                         \
+      fprintf(stdout, ".");                         \
+    }                                               \
+    else                                            \
+    {                                               \
+      ++result->num_failed;                         \
+      fprintf(stdout, "\nfailed at %s:%d\n",        \
+              __FILE__,  __LINE__);                 \
+      fprintf(stdout, " expected %p, but got %p\n", \
+              (expected), (value));                 \
     }                                               \
   }                                                 \
 
 #define ASSERT_STRING_EQUAL(expected, value)        \
   {                                                 \
-    if(strcmp(expected, value) == 0)                \
+    if(strcmp((expected), (value)) == 0)            \
     {                                               \
       ++result->num_passed;                         \
       fprintf(stdout, ".");                         \
@@ -58,7 +75,7 @@
       fprintf(stdout, "\nfailed at %s:%d\n",        \
               __FILE__,  __LINE__);                 \
       fprintf(stdout, " expected %s, but got %s\n", \
-              expected, value);                     \
+              (expected), (value));                 \
     }                                               \
   }                                                 \
 

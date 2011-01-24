@@ -132,75 +132,75 @@ static boolean match_int(void * a, void * b)
 
 TEST_CASE(test_linked_list)
 {
-  ASSERT_INT_EQAUL(0, linked_list_size(NULL));
+  ASSERT_INT_EQUAL(0, linked_list_size(NULL));
 
   int array[] = { 1, 2, 3, 4, 5 };
   linked_list * root = linked_list_allocate(NULL);
-  ASSERT_INT_EQAUL(1, linked_list_size(root));
+  ASSERT_INT_EQUAL(1, linked_list_size(root));
 
   linked_list * tmp = root;
   for(int i = 0; i < 5; ++i)
   {
     int * p = array + i;
     tmp = linked_list_insert(tmp, (void*)p);
-    ASSERT_INT_EQAUL(*p, *(int*)(tmp->data));
+    ASSERT_INT_EQUAL(*p, *(int*)(tmp->data));
     ASSERT_NULL(tmp->next);
-    ASSERT_INT_EQAUL(*p, *(int*)linked_list_nth(root, i + 1)->data);
+    ASSERT_INT_EQUAL(*p, *(int*)linked_list_nth(root, i + 1)->data);
     ASSERT_NULL(linked_list_nth(root, i + 1)->next);
   }
 
-  ASSERT_INT_EQAUL(6, linked_list_size(root));
+  ASSERT_INT_EQUAL(6, linked_list_size(root));
   /* linked_list_traverse(root, print_int); */
   {
     linked_list * p = linked_list_find(root, array + 2, match_int);
     ASSERT_NOT_NULL(p);
-    ASSERT_INT_EQAUL(3, *(int*)p->data);
+    ASSERT_INT_EQUAL(3, *(int*)p->data);
   }
 
   ASSERT_NOT_NULL(root = linked_list_delete(root, root));
 
-  ASSERT_INT_EQAUL(5, linked_list_size(root));
+  ASSERT_INT_EQUAL(5, linked_list_size(root));
   /* linked_list_traverse(root, print_int); */
   {
     linked_list * p = linked_list_find(root, array + 2, match_int);
     ASSERT_NOT_NULL(p);
-    ASSERT_INT_EQAUL(3, *(int*)p->data);
+    ASSERT_INT_EQUAL(3, *(int*)p->data);
   }
 
   ASSERT_NOT_NULL(root = linked_list_delete(root, root));
 
-  ASSERT_INT_EQAUL(4, linked_list_size(root));
+  ASSERT_INT_EQUAL(4, linked_list_size(root));
   /* linked_list_traverse(root, print_int); */
   {
     linked_list * p = linked_list_find(root, array + 2, match_int);
     ASSERT_NOT_NULL(p);
-    ASSERT_INT_EQAUL(3, *(int*)p->data);
+    ASSERT_INT_EQUAL(3, *(int*)p->data);
   }
 
   ASSERT_NOT_NULL(linked_list_delete(root, root->next));
 
-  ASSERT_INT_EQAUL(3, linked_list_size(root));
+  ASSERT_INT_EQUAL(3, linked_list_size(root));
   /* linked_list_traverse(root, print_int); */
   ASSERT_NULL(linked_list_find(root, array + 2, match_int));
 
   ASSERT_NULL(linked_list_delete(root, ((linked_list*)((linked_list*)root->next)->next)->next));
 
-  ASSERT_INT_EQAUL(3, linked_list_size(root));
+  ASSERT_INT_EQUAL(3, linked_list_size(root));
   /* linked_list_traverse(root, print_int); */
 
   ASSERT_NULL(linked_list_delete(root, ((linked_list*)root->next)->next));
 
-  ASSERT_INT_EQAUL(2, linked_list_size(root));
+  ASSERT_INT_EQUAL(2, linked_list_size(root));
   /* linked_list_traverse(root, print_int); */
 
   ASSERT_NULL(linked_list_delete(root, root->next));
 
-  ASSERT_INT_EQAUL(1, linked_list_size(root));
+  ASSERT_INT_EQUAL(1, linked_list_size(root));
   /* linked_list_traverse(root, print_int); */
 
   ASSERT_NULL(root = linked_list_delete(root, root));
 
-  ASSERT_INT_EQAUL(0, linked_list_size(root));
+  ASSERT_INT_EQUAL(0, linked_list_size(root));
   /* linked_list_traverse(root, print_int); */
   
   linked_list_traverse_free(root);

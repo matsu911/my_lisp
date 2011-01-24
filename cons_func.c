@@ -199,7 +199,7 @@ TEST_CASE(test_parse_Cons_internal)
   {
     lisp_object * cons;
     const char * s = " ";
-    ASSERT_INT_EQAUL(1, parse_Cons_internal(s, &cons));
+    ASSERT_INT_EQUAL(1, parse_Cons_internal(s, &cons));
     /* print_Cons(cons); */
     ASSERT_NULL(cons);
   }
@@ -207,7 +207,7 @@ TEST_CASE(test_parse_Cons_internal)
   {
     lisp_object * cons;
     const char * s = " a ";
-    ASSERT_INT_EQAUL(3, parse_Cons_internal(s, &cons));
+    ASSERT_INT_EQUAL(3, parse_Cons_internal(s, &cons));
     /* print_Cons(cons); */
     ASSERT_STRING_EQUAL("a", get_symbol_name(car_as_lisp_object(cons)));
     ASSERT_STRING_EQUAL("nil", get_symbol_name(nth_cdr(cons, 0)));
@@ -217,7 +217,7 @@ TEST_CASE(test_parse_Cons_internal)
   {
     lisp_object * cons;
     const char * s = " a b ";
-    ASSERT_INT_EQAUL(5, parse_Cons_internal(s, &cons));
+    ASSERT_INT_EQUAL(5, parse_Cons_internal(s, &cons));
     /* print_Cons(cons); */
     ASSERT_STRING_EQUAL("a", get_symbol_name(nth_as_lisp_object(cons, 0)));
     ASSERT_STRING_EQUAL("b", get_symbol_name(nth_as_lisp_object(cons, 1)));
@@ -228,7 +228,7 @@ TEST_CASE(test_parse_Cons_internal)
   {
     lisp_object * cons;
     const char * s = " (a) ";
-    ASSERT_INT_EQAUL(4, parse_Cons_internal(s, &cons));
+    ASSERT_INT_EQUAL(4, parse_Cons_internal(s, &cons));
     /* print_Cons(cons); */
     lisp_object * car = car_as_lisp_object(cons);
     ASSERT_STRING_EQUAL("a", get_symbol_name(nth_as_lisp_object(car, 0)));
@@ -240,7 +240,7 @@ TEST_CASE(test_parse_Cons_internal)
   {
     lisp_object * cons;
     const char * s = " ((a)) ";
-    ASSERT_INT_EQAUL(6, parse_Cons_internal(s, &cons));
+    ASSERT_INT_EQUAL(6, parse_Cons_internal(s, &cons));
     /* print_Cons(cons); */
     lisp_object * car = car_as_lisp_object(cons);
     lisp_object * caar = car_as_lisp_object(car);
@@ -253,7 +253,7 @@ TEST_CASE(test_parse_Cons_internal)
   {
     lisp_object * cons;
     const char * s = " ((a b)) ";
-    ASSERT_INT_EQAUL(8, parse_Cons_internal(s, &cons));
+    ASSERT_INT_EQUAL(8, parse_Cons_internal(s, &cons));
     /* print_Cons(cons); */
     lisp_object * car = car_as_lisp_object(cons);
     lisp_object * caar = car_as_lisp_object(car);
@@ -271,14 +271,14 @@ TEST_CASE(test_parse_Cons)
     lisp_object * cons;
     const char * s = " ";
     int size = parse_Cons(s, &cons);
-    ASSERT_INT_EQAUL(1, size);
+    ASSERT_INT_EQUAL(1, size);
     ASSERT_NULL(cons);
   }
 
   {
     lisp_object * cons;
     const char * s = " (a) ";
-    ASSERT_INT_EQAUL(4, parse_Cons(s, &cons));
+    ASSERT_INT_EQUAL(4, parse_Cons(s, &cons));
     ASSERT_STRING_EQUAL("a", get_symbol_name(car_as_lisp_object(cons)));
     ASSERT_STRING_EQUAL("nil", get_symbol_name(nth_cdr(cons, 0)));
     lisp_object_free(cons);
@@ -287,7 +287,7 @@ TEST_CASE(test_parse_Cons)
   {
     lisp_object * cons;
     const char * s = "(a . b)";
-    ASSERT_INT_EQAUL(7, parse_Cons(s, &cons));
+    ASSERT_INT_EQUAL(7, parse_Cons(s, &cons));
     ASSERT_STRING_EQUAL("a", get_symbol_name(car_as_lisp_object(cons)));
     ASSERT_STRING_EQUAL("b", get_symbol_name(nth_cdr(cons, 0)));
     lisp_object_free(cons);
@@ -296,7 +296,7 @@ TEST_CASE(test_parse_Cons)
   {
     lisp_object * cons;
     const char * s = " (a  .  b) ";
-    ASSERT_INT_EQAUL(10, parse_Cons(s, &cons));
+    ASSERT_INT_EQUAL(10, parse_Cons(s, &cons));
     ASSERT_STRING_EQUAL("a", get_symbol_name(car_as_lisp_object(cons)));
     ASSERT_STRING_EQUAL("b", get_symbol_name(nth_cdr(cons, 0)));
     lisp_object_free(cons);
@@ -305,7 +305,7 @@ TEST_CASE(test_parse_Cons)
   {
     lisp_object * cons;
     const char * s = " (a1b2#!a  .  b*0f1@:) ";
-    ASSERT_INT_EQAUL(22, parse_Cons(s, &cons));
+    ASSERT_INT_EQUAL(22, parse_Cons(s, &cons));
     ASSERT_STRING_EQUAL("a1b2#!a", get_symbol_name(car_as_lisp_object(cons)));
     ASSERT_STRING_EQUAL("b*0f1@:", get_symbol_name(cdr_as_lisp_object(cons)));
     lisp_object_free(cons);
@@ -315,7 +315,7 @@ TEST_CASE(test_parse_Cons)
     lisp_object * cons;
     const char * s = " (a b) ";
     parse_Cons(s, &cons);
-    ASSERT_INT_EQAUL(6, parse_Cons(s, &cons));
+    ASSERT_INT_EQUAL(6, parse_Cons(s, &cons));
     ASSERT_STRING_EQUAL("a", get_symbol_name(nth_as_lisp_object(cons, 0)));
     ASSERT_STRING_EQUAL("b", get_symbol_name(nth_as_lisp_object(cons, 1)));
     ASSERT_STRING_EQUAL("nil", get_symbol_name(nth_cdr(cons, 1)));
@@ -325,7 +325,7 @@ TEST_CASE(test_parse_Cons)
   {
     lisp_object * cons;
     const char * s = " (a b c) ";
-    ASSERT_INT_EQAUL(8, parse_Cons(s, &cons));
+    ASSERT_INT_EQUAL(8, parse_Cons(s, &cons));
     ASSERT_STRING_EQUAL("a", get_symbol_name(nth_as_lisp_object(cons, 0)));
     ASSERT_STRING_EQUAL("b", get_symbol_name(nth_as_lisp_object(cons, 1)));
     ASSERT_STRING_EQUAL("c", get_symbol_name(nth_as_lisp_object(cons, 2)));
@@ -336,7 +336,7 @@ TEST_CASE(test_parse_Cons)
   {
     lisp_object * cons;
     const char * s = " (a b c . d) ";
-    ASSERT_INT_EQAUL(12, parse_Cons(s, &cons));
+    ASSERT_INT_EQUAL(12, parse_Cons(s, &cons));
     ASSERT_STRING_EQUAL("a", get_symbol_name(nth_as_lisp_object(cons, 0)));
     ASSERT_STRING_EQUAL("b", get_symbol_name(nth_as_lisp_object(cons, 1)));
     ASSERT_STRING_EQUAL("c", get_symbol_name(nth_as_lisp_object(cons, 2)));
@@ -347,7 +347,7 @@ TEST_CASE(test_parse_Cons)
   {
     lisp_object * cons;
     const char * s = " ((a)) ";
-    ASSERT_INT_EQAUL(6, parse_Cons(s, &cons));
+    ASSERT_INT_EQUAL(6, parse_Cons(s, &cons));
     ASSERT_STRING_EQUAL("a", get_symbol_name(car_as_lisp_object(car_as_lisp_object(cons))));
     ASSERT_STRING_EQUAL("nil", get_symbol_name(nth_cdr(cons, 0)));
     lisp_object_free(cons);
@@ -356,7 +356,7 @@ TEST_CASE(test_parse_Cons)
   {
     lisp_object * cons;
     const char * s = " ((a b)) ";
-    ASSERT_INT_EQAUL(8, parse_Cons(s, &cons));
+    ASSERT_INT_EQUAL(8, parse_Cons(s, &cons));
     lisp_object * car = car_as_lisp_object(cons);
     ASSERT_STRING_EQUAL("a", get_symbol_name(nth_as_lisp_object(car, 0)));
     ASSERT_STRING_EQUAL("b", get_symbol_name(nth_as_lisp_object(car, 1)));
@@ -367,7 +367,7 @@ TEST_CASE(test_parse_Cons)
   {
     lisp_object * cons;
     const char * s = " (a (b c)) ";
-    ASSERT_INT_EQAUL(10, parse_Cons(s, &cons));
+    ASSERT_INT_EQUAL(10, parse_Cons(s, &cons));
     ASSERT_STRING_EQUAL("a", get_symbol_name(nth_as_lisp_object(cons, 0)));
     lisp_object * cdr = cdr_as_lisp_object(cons);
     lisp_object * cadr = car_as_lisp_object(cdr);

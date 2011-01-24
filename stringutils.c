@@ -170,12 +170,12 @@ int skip_chars_while(const char_match_predicate pred, const char * str)
 
 TEST_CASE(test_skip_chars_while)
 {
-  ASSERT_INT_EQAUL(0, skip_chars_while(is_white_space_char, ""));
-  ASSERT_INT_EQAUL(1, skip_chars_while(is_white_space_char, " "));
-  ASSERT_INT_EQAUL(1, skip_chars_while(is_white_space_char, " 1"));
-  ASSERT_INT_EQAUL(1, skip_chars_while(is_white_space_char, " 1 b"));
-  ASSERT_INT_EQAUL(3, skip_chars_while(is_white_space_char, "   1 b"));
-  ASSERT_INT_EQAUL(0, skip_chars_while(is_white_space_char, "1 b"));
+  ASSERT_INT_EQUAL(0, skip_chars_while(is_white_space_char, ""));
+  ASSERT_INT_EQUAL(1, skip_chars_while(is_white_space_char, " "));
+  ASSERT_INT_EQUAL(1, skip_chars_while(is_white_space_char, " 1"));
+  ASSERT_INT_EQUAL(1, skip_chars_while(is_white_space_char, " 1 b"));
+  ASSERT_INT_EQUAL(3, skip_chars_while(is_white_space_char, "   1 b"));
+  ASSERT_INT_EQUAL(0, skip_chars_while(is_white_space_char, "1 b"));
 }
 
 int skip_chars_while_not(const char_match_predicate pred, const char * str)
@@ -187,12 +187,12 @@ int skip_chars_while_not(const char_match_predicate pred, const char * str)
 
 TEST_CASE(test_skip_chars_while_not)
 {
-  ASSERT_INT_EQAUL(0, skip_chars_while_not(is_white_space_char, ""));
-  ASSERT_INT_EQAUL(0, skip_chars_while_not(is_white_space_char, " "));
-  ASSERT_INT_EQAUL(0, skip_chars_while_not(is_white_space_char, " 1"));
-  ASSERT_INT_EQAUL(0, skip_chars_while_not(is_white_space_char, " 1 b"));
-  ASSERT_INT_EQAUL(0, skip_chars_while_not(is_white_space_char, "   1 b"));
-  ASSERT_INT_EQAUL(1, skip_chars_while_not(is_white_space_char, "1 b"));
+  ASSERT_INT_EQUAL(0, skip_chars_while_not(is_white_space_char, ""));
+  ASSERT_INT_EQUAL(0, skip_chars_while_not(is_white_space_char, " "));
+  ASSERT_INT_EQUAL(0, skip_chars_while_not(is_white_space_char, " 1"));
+  ASSERT_INT_EQUAL(0, skip_chars_while_not(is_white_space_char, " 1 b"));
+  ASSERT_INT_EQUAL(0, skip_chars_while_not(is_white_space_char, "   1 b"));
+  ASSERT_INT_EQUAL(1, skip_chars_while_not(is_white_space_char, "1 b"));
 }
 
 char next_char_not(const char_match_predicate pred, const char * str)
@@ -204,9 +204,9 @@ char next_char_not(const char_match_predicate pred, const char * str)
 
 TEST_CASE(test_next_char_while_not)
 {
-  ASSERT_INT_EQAUL('\0', next_char_not(is_white_space_char, ""));
-  ASSERT_INT_EQAUL('\0', next_char_not(is_white_space_char, " "));
-  ASSERT_INT_EQAUL('a', next_char_not(is_white_space_char, " a"));
+  ASSERT_INT_EQUAL('\0', next_char_not(is_white_space_char, ""));
+  ASSERT_INT_EQUAL('\0', next_char_not(is_white_space_char, " "));
+  ASSERT_INT_EQUAL('a', next_char_not(is_white_space_char, " a"));
 }
 
 char * allocate_string(const char * s)

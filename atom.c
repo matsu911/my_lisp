@@ -93,24 +93,24 @@ TEST_CASE(test_new_Atom_with_string)
 {
   {
     lisp_object * atom = new_Atom_with_string("abc");
-    ASSERT_INT_EQAUL(LISP_OBJECT_ATOM, atom->type);
-    ASSERT_INT_EQAUL(LISP_OBJECT_ATOM_STRING, atom->sub_type);
+    ASSERT_INT_EQUAL(LISP_OBJECT_ATOM, atom->type);
+    ASSERT_INT_EQUAL(LISP_OBJECT_ATOM_STRING, atom->sub_type);
     ASSERT_STRING_EQUAL("abc", (char*)atom->atom);
     lisp_object_free(atom);
   }
 
   {
     lisp_object * atom = new_Atom_with_string("");
-    ASSERT_INT_EQAUL(LISP_OBJECT_ATOM, atom->type);
-    ASSERT_INT_EQAUL(LISP_OBJECT_ATOM_STRING, atom->sub_type);
+    ASSERT_INT_EQUAL(LISP_OBJECT_ATOM, atom->type);
+    ASSERT_INT_EQUAL(LISP_OBJECT_ATOM_STRING, atom->sub_type);
     ASSERT_STRING_EQUAL("", (char*)atom->atom);
     lisp_object_free(atom);
   }
 
   {
     lisp_object * atom = new_Atom_with_string(NULL);
-    ASSERT_INT_EQAUL(LISP_OBJECT_ATOM, atom->type);
-    ASSERT_INT_EQAUL(LISP_OBJECT_ATOM_STRING, atom->sub_type);
+    ASSERT_INT_EQUAL(LISP_OBJECT_ATOM, atom->type);
+    ASSERT_INT_EQUAL(LISP_OBJECT_ATOM_STRING, atom->sub_type);
     ASSERT_NULL(atom->atom);
     lisp_object_free(atom);
   }
@@ -120,72 +120,72 @@ TEST_CASE(test_parse_Atom)
 {
   {
     lisp_object * atom;
-    ASSERT_INT_EQAUL(0, parse_Atom("", &atom));
-    ASSERT_INT_EQAUL(LISP_OBJECT_ATOM, atom->type);
-    ASSERT_INT_EQAUL(LISP_OBJECT_ATOM_SYMBOL, atom->sub_type);
+    ASSERT_INT_EQUAL(0, parse_Atom("", &atom));
+    ASSERT_INT_EQUAL(LISP_OBJECT_ATOM, atom->type);
+    ASSERT_INT_EQUAL(LISP_OBJECT_ATOM_SYMBOL, atom->sub_type);
     ASSERT_STRING_EQUAL("nil", get_symbol_name(atom));
     lisp_object_free(atom);
   }
 
   {
     lisp_object * atom;
-    ASSERT_INT_EQAUL(1, parse_Atom("a", &atom));
-    ASSERT_INT_EQAUL(LISP_OBJECT_ATOM, atom->type);
-    ASSERT_INT_EQAUL(LISP_OBJECT_ATOM_SYMBOL, atom->sub_type);
+    ASSERT_INT_EQUAL(1, parse_Atom("a", &atom));
+    ASSERT_INT_EQUAL(LISP_OBJECT_ATOM, atom->type);
+    ASSERT_INT_EQUAL(LISP_OBJECT_ATOM_SYMBOL, atom->sub_type);
     ASSERT_STRING_EQUAL("a", get_symbol_name(atom));
     lisp_object_free(atom);
   }
 
   {
     lisp_object * atom;
-    ASSERT_INT_EQAUL(3, parse_Atom(" a1", &atom));
-    ASSERT_INT_EQAUL(LISP_OBJECT_ATOM, atom->type);
-    ASSERT_INT_EQAUL(LISP_OBJECT_ATOM_SYMBOL, atom->sub_type);
+    ASSERT_INT_EQUAL(3, parse_Atom(" a1", &atom));
+    ASSERT_INT_EQUAL(LISP_OBJECT_ATOM, atom->type);
+    ASSERT_INT_EQUAL(LISP_OBJECT_ATOM_SYMBOL, atom->sub_type);
     ASSERT_STRING_EQUAL("a1", get_symbol_name(atom));
     lisp_object_free(atom);
   }
 
   {
     lisp_object * atom;
-    ASSERT_INT_EQAUL(3, parse_Atom(" a1 b2", &atom));
-    ASSERT_INT_EQAUL(LISP_OBJECT_ATOM, atom->type);
-    ASSERT_INT_EQAUL(LISP_OBJECT_ATOM_SYMBOL, atom->sub_type);
+    ASSERT_INT_EQUAL(3, parse_Atom(" a1 b2", &atom));
+    ASSERT_INT_EQUAL(LISP_OBJECT_ATOM, atom->type);
+    ASSERT_INT_EQUAL(LISP_OBJECT_ATOM_SYMBOL, atom->sub_type);
     ASSERT_STRING_EQUAL("a1", get_symbol_name(atom));
     lisp_object_free(atom);
   }
 
   {
     lisp_object * atom;
-    ASSERT_INT_EQAUL(3, parse_Atom(" a1(", &atom));
-    ASSERT_INT_EQAUL(LISP_OBJECT_ATOM, atom->type);
-    ASSERT_INT_EQAUL(LISP_OBJECT_ATOM_SYMBOL, atom->sub_type);
+    ASSERT_INT_EQUAL(3, parse_Atom(" a1(", &atom));
+    ASSERT_INT_EQUAL(LISP_OBJECT_ATOM, atom->type);
+    ASSERT_INT_EQUAL(LISP_OBJECT_ATOM_SYMBOL, atom->sub_type);
     ASSERT_STRING_EQUAL("a1", get_symbol_name(atom));
     lisp_object_free(atom);
   }
 
   {
     lisp_object * atom;
-    ASSERT_INT_EQAUL(3, parse_Atom(" a1)", &atom));
-    ASSERT_INT_EQAUL(LISP_OBJECT_ATOM, atom->type);
-    ASSERT_INT_EQAUL(LISP_OBJECT_ATOM_SYMBOL, atom->sub_type);
+    ASSERT_INT_EQUAL(3, parse_Atom(" a1)", &atom));
+    ASSERT_INT_EQUAL(LISP_OBJECT_ATOM, atom->type);
+    ASSERT_INT_EQUAL(LISP_OBJECT_ATOM_SYMBOL, atom->sub_type);
     ASSERT_STRING_EQUAL("a1", get_symbol_name(atom));
     lisp_object_free(atom);
   }
 
   {
     lisp_object * atom;
-    ASSERT_INT_EQAUL(0, parse_Atom("(", &atom));
-    ASSERT_INT_EQAUL(LISP_OBJECT_ATOM, atom->type);
-    ASSERT_INT_EQAUL(LISP_OBJECT_ATOM_SYMBOL, atom->sub_type);
+    ASSERT_INT_EQUAL(0, parse_Atom("(", &atom));
+    ASSERT_INT_EQUAL(LISP_OBJECT_ATOM, atom->type);
+    ASSERT_INT_EQUAL(LISP_OBJECT_ATOM_SYMBOL, atom->sub_type);
     ASSERT_STRING_EQUAL("nil", get_symbol_name(atom));
     lisp_object_free(atom);
   }
 
   {
     lisp_object * atom;
-    ASSERT_INT_EQAUL(1, parse_Atom(" (", &atom));
-    ASSERT_INT_EQAUL(LISP_OBJECT_ATOM, atom->type);
-    ASSERT_INT_EQAUL(LISP_OBJECT_ATOM_SYMBOL, atom->sub_type);
+    ASSERT_INT_EQUAL(1, parse_Atom(" (", &atom));
+    ASSERT_INT_EQUAL(LISP_OBJECT_ATOM, atom->type);
+    ASSERT_INT_EQUAL(LISP_OBJECT_ATOM_SYMBOL, atom->sub_type);
     ASSERT_STRING_EQUAL("nil", get_symbol_name(atom));
     lisp_object_free(atom);
   }
