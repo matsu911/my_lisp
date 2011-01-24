@@ -23,6 +23,8 @@ TEST_CASE(test_eval);
 TEST_CASE(test_is_lisp_symbol_nil);
 TEST_CASE(test_new_Atom_with_string);
 TEST_CASE(test_linked_list);
+TEST_CASE(test_lisp_variable);
+TEST_CASE(test_lisp_lexical_scope);
 
 int main()
 {
@@ -49,6 +51,8 @@ int main()
   REGISTER_TEST_CASE(test_is_lisp_symbol_nil);
   REGISTER_TEST_CASE(test_new_Atom_with_string);
   REGISTER_TEST_CASE(test_linked_list);
+  REGISTER_TEST_CASE(test_lisp_variable);
+  REGISTER_TEST_CASE(test_lisp_lexical_scope);
 
   UNITTEST_MAIN_END();
 }
