@@ -6,11 +6,11 @@
 #include "symbol.h"
 #include "object.h"
 
-int parse_Atom(const char * str, lisp_object ** atom);
+int lisp_object_parse_atom(const char * str, lisp_object ** atom);
 
-lisp_object * new_Atom();
-lisp_object * new_Atom_with_lisp_symbol(lisp_symbol * sym);
-lisp_object * new_Atom_with_string(const char * str);
+lisp_object * lisp_object_atom();
+lisp_object * lisp_object_atom_with_lisp_symbol(lisp_symbol * sym);
+lisp_object * lisp_object_atom_with_string(const char * str);
 
 const char * get_symbol_name(const lisp_object * atom);
 
