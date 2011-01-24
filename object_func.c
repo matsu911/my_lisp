@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include "object_func.h"
 #include "cons_func.h"
+#include "atom.h"
+#include "stringutils.h"
 
 void my_free(void* p)
 {
@@ -33,4 +35,66 @@ void lisp_object_free(lisp_object * object)
   }
 
   my_free((void*)object);
+}
+
+int lisp_object_parse(const char * str, lisp_object ** object)
+{
+  const char * p = str;
+  p += skip_chars_while(is_white_space_char, p);
+  if(is_begin_list_char(*p))
+    return lisp_object_parse_cons(p, object);
+  else
+    return lisp_object_parse_atom(p, object);
+}
+
+void lisp_object_describe(lisp_object * object)
+{
+  if(object == NULL)
+  {
+    printf("object is NULL\n");
+    return;
+  }
+
+  printf("OBJECT: %p\n", object);
+
+  switch(object->type)
+  {
+    case LISP_OBJECT_ATOM:
+      printf("TYPE: ATOM\n");
+      break;
+    case LISP_OBJECT_CONS:
+      printf("TYPE: CONS\n");
+      break;
+  }
+
+  switch(object->sub_type)
+  {
+    case LISP_OBJECT_ATOM_NONE:
+      printf("SUB_TYPE: NONE\n");
+      break;
+    case LISP_OBJECT_ATOM_SYMBOL:
+      printf("SUB_TYPE: SYMBOL\n");
+      break;
+    case LISP_OBJECT_ATOM_CHAR:
+      printf("SUB_TYPE: CHAR\n");
+      break;
+    case LISP_OBJECT_ATOM_INTEGER:
+      printf("SUB_TYPE: INTEGER\n");
+      break;
+    case LISP_OBJECT_ATOM_STRING:
+      printf("SUB_TYPE: STRING\n");
+      break;
+  }
+
+  if(CAR(object) && CAR(object)->atom && is_lisp_symbol_nil((lisp_symbol*)CAR(object)->atom))
+    printf("CAR: NIL\n");
+  else
+    printf("CAR: %p\n", CAR(object));
+
+  if(CDR(object) && CDR(object)->atom && is_lisp_symbol_nil((lisp_symbol*)CDR(object)->atom))
+    printf("CDR: NIL\n");
+  else
+    printf("CDR: %p\n", CDR(object));
+
+  printf("ATOM: %p\n", object->atom);
 }

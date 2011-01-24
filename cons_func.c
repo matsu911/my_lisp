@@ -148,6 +148,7 @@ lisp_object * nth_cdr(const lisp_object * cons, int n)
 
 const char * lisp_object_print_atom(const lisp_object * atom)
 {
+  if(atom == NULL) return NULL;
   if(atom->sub_type == LISP_OBJECT_ATOM_SYMBOL)
     return allocate_string(get_symbol_name(atom));
   else if(atom->sub_type == LISP_OBJECT_ATOM_STRING)

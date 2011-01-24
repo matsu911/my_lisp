@@ -27,4 +27,7 @@ typedef struct _lisp_object
   void * atom;
 } lisp_object;
 
+#define CAR(cons) ((lisp_object*)((lisp_object*)cons)->car)
+#define CDR(cons) ((lisp_object*)((lisp_object*)cons)->cdr)
+
 #endif /* __OBJECT_H__ */
