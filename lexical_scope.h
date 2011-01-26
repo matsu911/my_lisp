@@ -13,7 +13,7 @@ typedef struct _lisp_lexical_scope
 } lisp_lexical_scope;
 
 lisp_lexical_scope * lisp_lexical_scope_allocate(lisp_lexical_scope * outer);
-void lisp_lexical_scope_free(lisp_lexical_scope * scope);
+/* void lisp_lexical_scope_free(lisp_lexical_scope * scope); */
 
 boolean lisp_lexical_scope_add_variable(lisp_lexical_scope * scope, lisp_variable * variable);
 lisp_variable * lisp_lexical_scope_lookup_variable(lisp_lexical_scope * scope, const char * name);

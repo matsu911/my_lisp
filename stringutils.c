@@ -1,5 +1,6 @@
 /* -*- mode: c; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
 
+#include <gc.h>
 #include "stringutils.h"
 #include "unittest.h"
 #include <string.h>
@@ -213,7 +214,7 @@ char * allocate_string(const char * s)
 {
   if(s == NULL) return NULL;
   int size = strlen(s);
-  char * ret = (char*)malloc(sizeof(char) * (size + 1));
+  char * ret = (char*)GC_MALLOC(sizeof(char) * (size + 1));
   strcpy(ret, s);
   return ret;
 }
@@ -224,13 +225,13 @@ TEST_CASE(test_allocate_string)
     const char * s = "";
     const char * tmp = allocate_string(s);
     ASSERT_STRING_EQUAL("", tmp);
-    free((void*)tmp);
+    /* free((void*)tmp); */
   }
 
   {
     const char * s = "abc";
     const char * tmp = allocate_string(s);
     ASSERT_STRING_EQUAL("abc", tmp);
-    free((void*)tmp);
+    /* free((void*)tmp); */
   }
 }

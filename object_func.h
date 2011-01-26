@@ -5,7 +5,7 @@
 
 #include "object.h"
 
-void lisp_object_free(lisp_object * object);
+/* void lisp_object_free(lisp_object * object); */
 
 int lisp_object_parse(const char * str, lisp_object ** object);
 

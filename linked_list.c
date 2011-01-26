@@ -1,6 +1,7 @@
 /* -*- mode: c; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
 
 #include <stdlib.h>
+#include <gc.h>
 #include "linked_list.h"
 #include "unittest.h"
 
@@ -36,7 +37,7 @@ linked_list * linked_list_delete(linked_list * list, linked_list * p)
       linked_list * next = tmp->next;
       if(prev)
         prev->next = next;
-      linked_list_free(tmp);
+      /* linked_list_free(tmp); */
       return next;
     }
       
@@ -49,7 +50,7 @@ linked_list * linked_list_delete(linked_list * list, linked_list * p)
 
 linked_list * linked_list_allocate(void * item)
 {
-  linked_list * p = (linked_list*)malloc(sizeof(linked_list));
+  linked_list * p = (linked_list*)GC_MALLOC_ATOMIC(sizeof(linked_list));
 
   p->next = NULL;
   p->data = item;
@@ -57,11 +58,11 @@ linked_list * linked_list_allocate(void * item)
   return p;
 }
 
-void linked_list_free(linked_list * list)
-{
-  if(list)
-    free(list);
-}
+/* void linked_list_free(linked_list * list) */
+/* { */
+/*   if(list) */
+/*     free(list); */
+/* } */
 
 linked_list * linked_list_nth(linked_list * list, const int n)
 {
@@ -99,10 +100,10 @@ void linked_list_traverse(linked_list * list, void (*func)(linked_list *))
   }
 }
 
-void linked_list_traverse_free(linked_list * list)
-{
-  linked_list_traverse(list, linked_list_free);
-}
+/* void linked_list_traverse_free(linked_list * list) */
+/* { */
+/*   linked_list_traverse(list, linked_list_free); */
+/* } */
 
 linked_list * linked_list_find(linked_list * list, void * val, boolean (*matcher)(void*, void*))
 {
@@ -203,5 +204,5 @@ TEST_CASE(test_linked_list)
   ASSERT_INT_EQUAL(0, linked_list_size(root));
   /* linked_list_traverse(root, print_int); */
   
-  linked_list_traverse_free(root);
+  /* linked_list_traverse_free(root); */
 }

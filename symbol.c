@@ -2,6 +2,7 @@
 
 #include "symbol.h"
 #include <stdlib.h>
+#include <gc.h>
 #include "stringutils.h"
 #include "linked_list.h"
 #include "unittest.h"
@@ -15,20 +16,20 @@ lisp_symbol * lisp_symbol_nil()
 
 lisp_symbol * lisp_symbol_allocate()
 {
-  lisp_symbol * p = (lisp_symbol*)malloc(sizeof(lisp_symbol));
+  lisp_symbol * p = (lisp_symbol*)GC_MALLOC_ATOMIC(sizeof(lisp_symbol));
   
   return p;
 }
 
-void lisp_symbol_free(lisp_symbol * sym)
-{
-  if(sym == NULL || is_lisp_symbol_nil(sym)) return;
+/* void lisp_symbol_free(lisp_symbol * sym) */
+/* { */
+/*   if(sym == NULL || is_lisp_symbol_nil(sym)) return; */
 
-  if(sym->name)
-    free(sym->name);
+/*   if(sym->name) */
+/*     free(sym->name); */
 
-  free(sym);
-}
+/*   free(sym); */
+/* } */
 
 boolean is_lisp_symbol_nil(const lisp_symbol * sym)
 {

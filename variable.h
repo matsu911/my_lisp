@@ -13,6 +13,6 @@ typedef struct _lisp_variable
 } lisp_variable;
 
 lisp_variable * lisp_variable_allocate(const char * name, lisp_object * value, lisp_object * function);
-void lisp_variable_free(lisp_variable * variable);
+/* void lisp_variable_free(lisp_variable * variable); */
 
 #endif /* __VARIABLE_H__ */

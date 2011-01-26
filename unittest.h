@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <gc.h>
 #include "type.h"
 
 #define ASSERT_TRUE(expression)                 \
@@ -95,11 +96,11 @@ void print_test_result(Test_Result * result);
 #define REGISTER_TEST_CASE(test_name)                   \
   {                                                     \
     results = (Test_Result**)                           \
-      realloc((void*)results,                           \
+      GC_REALLOC((void*)results,                        \
               sizeof(Test_Result*) * ++num_test_cases); \
                                                         \
     Test_Result * result =                              \
-      (Test_Result*)malloc(sizeof(Test_Result));        \
+      (Test_Result*)GC_MALLOC(sizeof(Test_Result));    \
     result->num_passed = 0;                             \
     result->num_failed = 0;                             \
     test_name(result);                                  \
@@ -123,10 +124,10 @@ void print_test_result(Test_Result * result);
         ++num_passed;                               \
       else                                          \
         ++num_failed;                               \
-      free((void*)results[i]);                      \
+      /* free((void*)results[i]); */                \
     }                                               \
   }                                                 \
-                                                    \
+  /* free(results); */                              \
   int num_test = num_passed + num_failed;           \
   printf("\n");                                     \
   printf("%d/%d passed\n", num_passed, num_test);   \

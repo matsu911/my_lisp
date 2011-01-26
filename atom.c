@@ -2,6 +2,7 @@
 
 #include <string.h>
 #include <stdlib.h>
+#include <gc.h>
 #include "atom.h"
 #include "object_func.h"
 #include "symbol.h"
@@ -10,7 +11,7 @@
 
 lisp_object * lisp_object_atom()
 {
-  lisp_object * atom = (lisp_object*)malloc(sizeof(lisp_object));
+  lisp_object * atom = (lisp_object*)GC_MALLOC_ATOMIC(sizeof(lisp_object));
   atom->atom = NULL;
   atom->type = LISP_OBJECT_ATOM;
   return atom;
@@ -48,7 +49,7 @@ int lisp_object_parse_atom(const char * str, lisp_object ** atom)
   }
   const char * end = p;
 
-  char * name = (char*)malloc(sizeof(char) * (end - beg + 1));
+  char * name = (char*)GC_MALLOC_ATOMIC(sizeof(char) * (end - beg + 1));
   {
     char * p = name;
     while(beg != end)
@@ -65,7 +66,7 @@ int lisp_object_parse_atom(const char * str, lisp_object ** atom)
   {
     if(is_number_string(name))
     {
-      int * p = (int*)malloc(sizeof(int));
+      int * p = (int*)GC_MALLOC_ATOMIC(sizeof(int));
       *p      = atoi(name);
 
       (*atom)->atom     = p;
@@ -108,7 +109,7 @@ TEST_CASE(test_lisp_object_atom_with_string)
     ASSERT_INT_EQUAL(LISP_OBJECT_ATOM, atom->type);
     ASSERT_INT_EQUAL(LISP_OBJECT_ATOM_STRING, atom->sub_type);
     ASSERT_STRING_EQUAL("abc", (char*)atom->atom);
-    lisp_object_free(atom);
+    /* lisp_object_free(atom); */
   }
 
   {
@@ -116,7 +117,7 @@ TEST_CASE(test_lisp_object_atom_with_string)
     ASSERT_INT_EQUAL(LISP_OBJECT_ATOM, atom->type);
     ASSERT_INT_EQUAL(LISP_OBJECT_ATOM_STRING, atom->sub_type);
     ASSERT_STRING_EQUAL("", (char*)atom->atom);
-    lisp_object_free(atom);
+    /* lisp_object_free(atom); */
   }
 
   {
@@ -124,7 +125,7 @@ TEST_CASE(test_lisp_object_atom_with_string)
     ASSERT_INT_EQUAL(LISP_OBJECT_ATOM, atom->type);
     ASSERT_INT_EQUAL(LISP_OBJECT_ATOM_STRING, atom->sub_type);
     ASSERT_NULL(atom->atom);
-    lisp_object_free(atom);
+    /* lisp_object_free(atom); */
   }
 }
 
@@ -136,7 +137,7 @@ TEST_CASE(test_lisp_object_parse_atom)
     ASSERT_INT_EQUAL(LISP_OBJECT_ATOM, atom->type);
     ASSERT_INT_EQUAL(LISP_OBJECT_ATOM_SYMBOL, atom->sub_type);
     ASSERT_STRING_EQUAL("nil", get_symbol_name(atom));
-    lisp_object_free(atom);
+    /* lisp_object_free(atom); */
   }
 
   {
@@ -145,7 +146,7 @@ TEST_CASE(test_lisp_object_parse_atom)
     ASSERT_INT_EQUAL(LISP_OBJECT_ATOM, atom->type);
     ASSERT_INT_EQUAL(LISP_OBJECT_ATOM_SYMBOL, atom->sub_type);
     ASSERT_STRING_EQUAL("a", get_symbol_name(atom));
-    lisp_object_free(atom);
+    /* lisp_object_free(atom); */
   }
 
   {
@@ -154,7 +155,7 @@ TEST_CASE(test_lisp_object_parse_atom)
     ASSERT_INT_EQUAL(LISP_OBJECT_ATOM, atom->type);
     ASSERT_INT_EQUAL(LISP_OBJECT_ATOM_SYMBOL, atom->sub_type);
     ASSERT_STRING_EQUAL("a1", get_symbol_name(atom));
-    lisp_object_free(atom);
+    /* lisp_object_free(atom); */
   }
 
   {
@@ -163,7 +164,7 @@ TEST_CASE(test_lisp_object_parse_atom)
     ASSERT_INT_EQUAL(LISP_OBJECT_ATOM, atom->type);
     ASSERT_INT_EQUAL(LISP_OBJECT_ATOM_SYMBOL, atom->sub_type);
     ASSERT_STRING_EQUAL("a1", get_symbol_name(atom));
-    lisp_object_free(atom);
+    /* lisp_object_free(atom); */
   }
 
   {
@@ -172,7 +173,7 @@ TEST_CASE(test_lisp_object_parse_atom)
     ASSERT_INT_EQUAL(LISP_OBJECT_ATOM, atom->type);
     ASSERT_INT_EQUAL(LISP_OBJECT_ATOM_SYMBOL, atom->sub_type);
     ASSERT_STRING_EQUAL("a1", get_symbol_name(atom));
-    lisp_object_free(atom);
+    /* lisp_object_free(atom); */
   }
 
   {
@@ -181,7 +182,7 @@ TEST_CASE(test_lisp_object_parse_atom)
     ASSERT_INT_EQUAL(LISP_OBJECT_ATOM, atom->type);
     ASSERT_INT_EQUAL(LISP_OBJECT_ATOM_SYMBOL, atom->sub_type);
     ASSERT_STRING_EQUAL("a1", get_symbol_name(atom));
-    lisp_object_free(atom);
+    /* lisp_object_free(atom); */
   }
 
   {
@@ -190,7 +191,7 @@ TEST_CASE(test_lisp_object_parse_atom)
     ASSERT_INT_EQUAL(LISP_OBJECT_ATOM, atom->type);
     ASSERT_INT_EQUAL(LISP_OBJECT_ATOM_SYMBOL, atom->sub_type);
     ASSERT_STRING_EQUAL("nil", get_symbol_name(atom));
-    lisp_object_free(atom);
+    /* lisp_object_free(atom); */
   }
 
   {
@@ -199,6 +200,6 @@ TEST_CASE(test_lisp_object_parse_atom)
     ASSERT_INT_EQUAL(LISP_OBJECT_ATOM, atom->type);
     ASSERT_INT_EQUAL(LISP_OBJECT_ATOM_SYMBOL, atom->sub_type);
     ASSERT_STRING_EQUAL("nil", get_symbol_name(atom));
-    lisp_object_free(atom);
+    /* lisp_object_free(atom); */
   }
 }

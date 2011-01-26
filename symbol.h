@@ -13,7 +13,7 @@ typedef struct _lisp_symbol
 
 lisp_symbol * lisp_symbol_allocate();
 lisp_symbol * lisp_symbol_nil();
-void lisp_symbol_free(lisp_symbol * sym);
+/* void lisp_symbol_free(lisp_symbol * sym); */
 
 boolean is_lisp_symbol_nil(const lisp_symbol * sym);
 

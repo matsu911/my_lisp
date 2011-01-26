@@ -1,12 +1,13 @@
 /* -*- mode: c; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
 
 #include <stdlib.h>
+#include <gc.h>
 #include "lexical_scope.h"
 #include "unittest.h"
 
 lisp_lexical_scope * lisp_lexical_scope_allocate(lisp_lexical_scope * outer)
 {
-  lisp_lexical_scope * scope = (lisp_lexical_scope*)malloc(sizeof(lisp_lexical_scope));
+  lisp_lexical_scope * scope = (lisp_lexical_scope*)GC_MALLOC_ATOMIC(sizeof(lisp_lexical_scope));
 
   scope->outer     = outer;
   scope->variables = NULL;
