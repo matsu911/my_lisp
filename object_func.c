@@ -98,4 +98,27 @@ void lisp_object_describe(lisp_object * object)
     printf("CDR: %p\n", CDR(object));
 
   printf("ATOM: %p\n", object->atom);
+
+  if(object->type == LISP_OBJECT_ATOM)
+  {
+    switch(object->sub_type)
+    {
+      case LISP_OBJECT_ATOM_NONE:
+        printf("VALUE: NONE\n");
+        break;
+      case LISP_OBJECT_ATOM_SYMBOL:
+        printf("VALUE: %s\n", get_symbol_name(object));
+        break;
+      case LISP_OBJECT_ATOM_CHAR:
+        printf("VALUE: %c\n", *(char*)object->atom);
+        break;
+      case LISP_OBJECT_ATOM_INTEGER:
+        printf("VALUE: %d\n", *(int*)object->atom);
+        break;
+      case LISP_OBJECT_ATOM_STRING:
+        printf("VALUE: \"%s\"\n", object->atom);
+        break;
+    }
+  }
+
 }
