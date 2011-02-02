@@ -72,6 +72,26 @@ static int lisp_object_parse_atom(const char * str, lisp_object ** atom)
   return end - str;
 }
 
+static int lisp_object_parse_cons(const char * str, lisp_object ** cons);
+static int lisp_object_parse_cons_internal(const char * str, lisp_object ** cons);
+
+static int lisp_object_parse_cons_internal2(const char * str, lisp_object * target)
+{
+  char * p = str;
+
+  char c;
+  while((c = *(p + skip_chars_while(is_white_space_char, p))) &&
+        !is_end_list_char(c) && !is_end_string_char(c))
+  {
+    lisp_object * tmp;
+    p += lisp_object_parse_cons_internal(p, &tmp);
+    target->cdr = tmp;
+    target = tmp;
+  }
+
+  return p - str;
+}
+
 static int lisp_object_parse_cons_internal(const char * str, lisp_object ** cons)
 {
   const char * p = str;
@@ -98,9 +118,10 @@ static int lisp_object_parse_cons_internal(const char * str, lisp_object ** cons
   if(begin_with_begin_list_char)
   {
     ++p;
-    lisp_object * c;
-    p += lisp_object_parse_cons_internal(p, &c);
-    (*cons)->car = c;
+    lisp_object * obj;
+    p += lisp_object_parse_cons_internal(p, &obj);
+    p += lisp_object_parse_cons_internal2(p, obj);
+    (*cons)->car = obj;
   }
   else
   {
@@ -127,16 +148,7 @@ static int lisp_object_parse_cons_internal(const char * str, lisp_object ** cons
   }
   else
   {
-    char c;
-    lisp_object * target = *cons;
-    while((c = *(p + skip_chars_while(is_white_space_char, p))) &&
-          !is_end_list_char(c) && !is_end_string_char(c))
-    {
-      lisp_object * tmp;
-      p += lisp_object_parse_cons_internal(p, &tmp);
-      target->cdr = tmp;
-      target = tmp;
-    }
+    p += lisp_object_parse_cons_internal2(p, *cons);
   }
 
   if(begin_with_begin_list_char == TRUE)
@@ -147,7 +159,6 @@ static int lisp_object_parse_cons_internal(const char * str, lisp_object ** cons
 
   return p - str;
 }
-
 
 static int lisp_object_parse_cons(const char * str, lisp_object ** cons)
 {
@@ -410,6 +421,18 @@ TEST_CASE(test_lisp_object_parse)
     ASSERT_STRING_EQUAL("nil", get_symbol_name(nth_as_lisp_object(cons, 1)));
     ASSERT_STRING_EQUAL("quote", get_symbol_name(CAR(nth_as_lisp_object(cons, 2))));
     ASSERT_STRING_EQUAL("quote", get_symbol_name(CAR(nth_as_lisp_object(cons, 3))));
+  }
+
+  {
+    lisp_object * cons;
+    const char * s = " (let ((a 1) (b 2)) a b) ";
+    ASSERT_INT_EQUAL(24, lisp_object_parse(s, &cons));
+    lisp_object_describe(cons);
+    ASSERT_STRING_EQUAL("let", get_symbol_name(nth_as_lisp_object(cons, 0)));
+    ASSERT_STRING_EQUAL("a", get_symbol_name(CAR(CAR(nth_as_lisp_object(cons, 1)))));
+    ASSERT_STRING_EQUAL("b", get_symbol_name(CAR(CAR(CDR(nth_as_lisp_object(cons, 1))))));
+    ASSERT_STRING_EQUAL("a", get_symbol_name(nth_as_lisp_object(cons, 2)));
+    ASSERT_STRING_EQUAL("b", get_symbol_name(nth_as_lisp_object(cons, 3)));
   }
 }
 
