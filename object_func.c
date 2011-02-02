@@ -38,16 +38,6 @@
 /*   my_free((void*)object); */
 /* } */
 
-int lisp_object_parse(const char * str, lisp_object ** object)
-{
-  const char * p = str;
-  p += skip_chars_while(is_white_space_char, p);
-  if(is_begin_list_char(*p))
-    return lisp_object_parse_cons(p, object);
-  else
-    return lisp_object_parse_atom(p, object);
-}
-
 void lisp_object_describe(lisp_object * object)
 {
   if(object == NULL)
@@ -116,7 +106,7 @@ void lisp_object_describe(lisp_object * object)
         printf("VALUE: %d\n", *(int*)object->atom);
         break;
       case LISP_OBJECT_ATOM_STRING:
-        printf("VALUE: \"%s\"\n", object->atom);
+        printf("VALUE: \"%s\"\n", (char*)object->atom);
         break;
     }
   }

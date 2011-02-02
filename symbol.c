@@ -83,7 +83,7 @@ TEST_CASE(test_is_lisp_symbol_nil)
 {
   ASSERT_TRUE(is_lisp_symbol_nil(lisp_symbol_nil()));
 
-  lisp_symbol * pp = lisp_symbol_make("a");
+  lisp_symbol_make("a");
 
   lisp_symbol * p = lisp_symbol_lookup("a");
 

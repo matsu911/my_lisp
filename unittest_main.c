@@ -13,7 +13,7 @@ TEST_CASE(test_is_end_list_char);
 TEST_CASE(test_is_end_string_char);
 TEST_CASE(test_parse_list);
 TEST_CASE(test_lisp_object_parse_atom);
-TEST_CASE(test_lisp_object_parse_cons);
+TEST_CASE(test_lisp_object_parse);
 TEST_CASE(test_skip_chars_while);
 TEST_CASE(test_skip_chars_while_not);
 TEST_CASE(test_next_char_while_not);
@@ -41,7 +41,7 @@ int main()
   REGISTER_TEST_CASE(test_is_end_string_char);
   /* REGISTER_TEST_CASE(test_parse_list); */
   REGISTER_TEST_CASE(test_lisp_object_parse_atom);
-  REGISTER_TEST_CASE(test_lisp_object_parse_cons);
+  REGISTER_TEST_CASE(test_lisp_object_parse);
   REGISTER_TEST_CASE(test_skip_chars_while);
   REGISTER_TEST_CASE(test_skip_chars_while_not);
   REGISTER_TEST_CASE(test_next_char_while_not);

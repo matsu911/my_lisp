@@ -6,8 +6,6 @@
 #include "symbol.h"
 #include "object.h"
 
-int lisp_object_parse_atom(const char * str, lisp_object ** atom);
-
 lisp_object * lisp_object_atom();
 lisp_object * lisp_object_atom_with_lisp_symbol(lisp_symbol * sym);
 lisp_object * lisp_object_atom_with_string(const char * str);
