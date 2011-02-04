@@ -33,7 +33,7 @@ boolean lisp_lexical_scope_add_variable(lisp_lexical_scope * scope, lisp_variabl
   {
     scope->variables = linked_list_allocate(variable);
   }
-  else if(lisp_lexical_scope_lookup_variable(scope, variable->name))
+  else if(lisp_lexical_scope_lookup_local_variable(scope, variable->name))
   {
     return FALSE;
   }
@@ -50,7 +50,7 @@ static boolean lisp_variable_name_match(void * a, void * b)
   return a && b && strcmp(((lisp_variable*)a)->name, ((lisp_variable*)b)->name) == 0;
 }
 
-lisp_variable * lisp_lexical_scope_lookup_variable(lisp_lexical_scope * scope, const char * name)
+lisp_variable * lisp_lexical_scope_lookup_local_variable(lisp_lexical_scope * scope, const char * name)
 {
   if(scope == NULL)
     return NULL;
@@ -60,8 +60,20 @@ lisp_variable * lisp_lexical_scope_lookup_variable(lisp_lexical_scope * scope, c
   linked_list * l = linked_list_find(scope->variables, &tmp, lisp_variable_name_match);
   if(l)
     return l->data;
+  else
+    return NULL;
+}
 
-  return lisp_lexical_scope_lookup_variable(scope->outer, name);
+lisp_variable * lisp_lexical_scope_lookup_variable(lisp_lexical_scope * scope, const char * name)
+{
+  if(scope == NULL)
+    return NULL;
+
+  lisp_variable * ret = lisp_lexical_scope_lookup_local_variable(scope, name);
+  if(ret)
+    return ret;
+  else
+    return lisp_lexical_scope_lookup_variable(scope->outer, name);
 }
 
 TEST_CASE(test_lisp_lexical_scope)
@@ -111,4 +123,14 @@ TEST_CASE(test_lisp_lexical_scope)
     ASSERT_POINTER_EQUAL(vv_a, v);
     ASSERT_STRING_EQUAL("a", v->name);
   }
+
+  lisp_variable * vv_b = lisp_variable_allocate("b", NULL, NULL);
+  ASSERT_TRUE(lisp_lexical_scope_add_variable(nested_scope, vv_b));
+
+  {
+    lisp_variable * v = lisp_lexical_scope_lookup_variable(nested_scope, "b");
+    ASSERT_POINTER_EQUAL(vv_b, v);
+    ASSERT_STRING_EQUAL("b", v->name);
+  }
+
 }

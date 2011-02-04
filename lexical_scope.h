@@ -17,5 +17,6 @@ lisp_lexical_scope * lisp_lexical_scope_allocate(lisp_lexical_scope * outer);
 
 boolean lisp_lexical_scope_add_variable(lisp_lexical_scope * scope, lisp_variable * variable);
 lisp_variable * lisp_lexical_scope_lookup_variable(lisp_lexical_scope * scope, const char * name);
+lisp_variable * lisp_lexical_scope_lookup_local_variable(lisp_lexical_scope * scope, const char * name);
 
 #endif /* __LEXICAL_SCOPE_H__ */
