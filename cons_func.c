@@ -91,10 +91,17 @@ static void lisp_object_print_cons_internal(const lisp_object * cons)
 
 void lisp_object_print_cons(const lisp_object * cons)
 {
-  printf("\n");
   printf("(");
   lisp_object_print_cons_internal(cons);
   /* printf(")"); */
   printf("\n");
+}
+
+void lisp_object_print(const lisp_object * obj)
+{
+  if(obj->type == LISP_OBJECT_CONS)
+    lisp_object_print_cons(obj);
+  else if(obj->type == LISP_OBJECT_ATOM)
+    printf("%s\n", lisp_object_print_atom(obj));
 }
 
