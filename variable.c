@@ -19,22 +19,10 @@ lisp_variable * lisp_variable_allocate(const char * name,
   return variable;
 }
 
-/* void lisp_variable_free(lisp_variable * variable) */
-/* { */
-/*   if(variable == NULL) */
-/*     return; */
-
-/*   if(variable->name) */
-/*     free((void*)variable->name); */
-
-/*   free(variable); */
-/* } */
-
 TEST_CASE(test_lisp_variable)
 {
   lisp_variable * v = lisp_variable_allocate("a", NULL, NULL);
   ASSERT_STRING_EQUAL("a", v->name);
   ASSERT_NULL(v->value_slot);
   ASSERT_NULL(v->function_slot);
-  /* lisp_variable_free(v); */
 }

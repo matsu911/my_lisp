@@ -25,6 +25,7 @@ TEST_CASE(test_lisp_object_atom_with_string);
 TEST_CASE(test_linked_list);
 TEST_CASE(test_lisp_variable);
 TEST_CASE(test_lisp_lexical_scope);
+TEST_CASE(test_lisp_block_tag);
 
 int main()
 {
@@ -53,6 +54,7 @@ int main()
   REGISTER_TEST_CASE(test_linked_list);
   REGISTER_TEST_CASE(test_lisp_variable);
   REGISTER_TEST_CASE(test_lisp_lexical_scope);
+  REGISTER_TEST_CASE(test_lisp_block_tag);
 
   UNITTEST_MAIN_END();
 }

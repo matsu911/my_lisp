@@ -15,15 +15,6 @@ lisp_lexical_scope * lisp_lexical_scope_allocate(lisp_lexical_scope * outer)
   return scope;
 }
 
-void lisp_lexical_scope_free(lisp_lexical_scope * scope)
-{
-  if(scope == NULL)
-    return;
-
-  scope->outer = NULL;
-  free(scope);
-}
-
 boolean lisp_lexical_scope_add_variable(lisp_lexical_scope * scope, lisp_variable * variable)
 {
   if(scope == NULL || variable == NULL || variable->name == NULL)
@@ -74,6 +65,58 @@ lisp_variable * lisp_lexical_scope_lookup_variable(lisp_lexical_scope * scope, c
     return ret;
   else
     return lisp_lexical_scope_lookup_variable(scope->outer, name);
+}
+
+boolean lisp_lexical_scope_add_block_tag(lisp_lexical_scope * scope, lisp_block_tag * block_tag)
+{
+  if(scope == NULL || block_tag == NULL || block_tag->name == NULL)
+    return FALSE;
+
+  if(scope->variables == NULL)
+  {
+    scope->variables = linked_list_allocate(block_tag);
+  }
+  else if(lisp_lexical_scope_lookup_local_block_tag(scope, block_tag->name))
+  {
+    return FALSE;
+  }
+  else
+  {
+    linked_list_append(scope->variables, block_tag);
+  }
+
+  return TRUE;
+}
+
+static boolean lisp_block_tag_name_match(void * a, void * b)
+{
+  return a && b && strcmp(((lisp_block_tag*)a)->name, ((lisp_block_tag*)b)->name) == 0;
+}
+
+lisp_block_tag * lisp_lexical_scope_lookup_local_block_tag(lisp_lexical_scope * scope, const char * name)
+{
+  if(scope == NULL)
+    return NULL;
+
+  lisp_block_tag tmp;
+  tmp.name = name;
+  linked_list * l = linked_list_find(scope->variables, &tmp, lisp_block_tag_name_match);
+  if(l)
+    return l->data;
+  else
+    return NULL;
+}
+
+lisp_block_tag * lisp_lexical_scope_lookup_block_tag(lisp_lexical_scope * scope, const char * name)
+{
+  if(scope == NULL)
+    return NULL;
+
+  lisp_block_tag * ret = lisp_lexical_scope_lookup_local_block_tag(scope, name);
+  if(ret)
+    return ret;
+  else
+    return lisp_lexical_scope_lookup_block_tag(scope->outer, name);
 }
 
 TEST_CASE(test_lisp_lexical_scope)
